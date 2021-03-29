@@ -1,0 +1,24 @@
+{
+  "name": "xstate",
+  "version": "1.0.0",
+  "description": "XState",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/**/*.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidkpiano/frontend-masters-xstate-workshop.git"
+  },
+  "author": "Marcell Ciszek Druzynski",
+  "license": "MIT",
+  "dependencies": {
+    "xstate": "^4.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "1.23.7"
+  }
+}
