@@ -1,48 +1,30 @@
 import { createMachine } from "xstate";
 
-const elOutput = document.querySelector("#output");
-
-function output(object) {
-  elOutput.innerHTML = JSON.stringify(object, null, 2);
-}
-
-const user = {
-  name: "masiu",
-  company: "etraveli",
-  interests: ["piano", "state machines"],
-};
-
-output(user);
-
-const machine = {
-  initial: "idle",
+const feedBackMachine = createMachine({
+  initial: "question",
   states: {
-    idle: {
+    question: {
       on: {
-        FETCH: "pending",
+        CLICK_GOOD: "thanks",
       },
     },
-    pending: {
+    form: {
       on: {
-        RESOLVE: "resolved",
-        REJECT: "rejected",
+        CLICK: {
+          target: "question",
+        },
       },
     },
-    resolved: {},
-    rejected: {},
+    thanks: {},
+    closed: {},
   },
+});
+
+console.log(feedBackMachine.initialState);
+
+const clickGoodEvent = {
+  type: "CLICK_GOOD",
 };
 
-const transition = (state, event) => {
-  return machine.states[state]?.on?.[event] || state;
-};
-
-output(transition("idle", "FETCH"));
-let currentState = machine.initial;
-
-const send = event => {
-  const nextState = transition(currentState, event);
-  currentState = nextState;
-};
-
-window.send = send;
+const nextState = feedBackMachine.transition(feedBackMachine.initialState, clickGoodEvent);
+console.log(nextState);
