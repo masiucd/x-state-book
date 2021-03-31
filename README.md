@@ -1,51 +1,46 @@
-# Xstate
+# mmasiu-xstate
 
-<!--
-Welcome to the [Frontend Masters](https://frontendmasters.com/) workshop on **JavaScript State Machines and Statecharts with XState**. In this workshop, you will:
+<!-- ## Table of Contents
 
-- Learn fundamental computer science principles
-- Represent complex logic clearly
-- Prevent impossible states and detect edge-cases
-- Identify and eliminate edge cases
-- Visualize your logic as state machine diagrams
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Contributing](../CONTRIBUTING.md)
 
-## XState
+## About <a name = "about"></a>
 
-- GitHub repo: https://github.com/davidkpiano/xstate
-- Documentation: http://xstate.js.org/docs
-- Visualizer: http://xstate.js.org/viz
+Write about 1-2 paragraphs describing the purpose of your project.
 
-## Getting Started
+## Getting Started <a name = "getting_started"></a>
 
-To run this workshop:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
-- Clone this repo
-- You need to have `parcel` installed. To do this, run `npm install -g parcel-bundler`.
-- In the repo's directory, run `npm install`
-- Run `npm start`. You should see this:
+### Prerequisites
 
-```bash
-Server running at http://localhost:1234
+What things you need to install the software and how to install them.
+
+```
+Give examples
 ```
 
-- Navigate to [http://localhost:1234/00/index.html](http://localhost:1234/00/index.html).
+### Installing
 
-## Exercises
+A step by step series of examples that tell you how to get a development env running.
 
-Exercises are separated by directory. The first lesson is at [`01/index.js`](./01/index.js). Each directory will contain a `README.md` describing the goal of the exercise, as well as tips and comments in the `index.js` file.
+Say what the step will be
 
-If you get lost, refer to the `index.final.js` file in each directory.
+```
+Give the example
+```
 
-To navigate to a rendered exercise in the browser, change the directory in the URL (`http://localhost:1234/[dir]/index.html`). The first lesson is located at [http://localhost:1234/00/index.html](http://localhost:1234/01/index.html).
+And repeat
 
-- Welcome (📝): [📄 Readme](./src/00/README.md) | [🔗 Link](http://localhost:1234/00/index.html)
-- Exercise 01: [📄 Readme](./src/01/README.md) | [🔗 Link](http://localhost:1234/01/index.html)
-- Exercise 02: [📄 Readme](./src/02/README.md) | [🔗 Link](http://localhost:1234/02/index.html)
-- Exercise 03: [📄 Readme](./src/03/README.md) | [🔗 Link](http://localhost:1234/03/index.html)
-- Exercise 04: [📄 Readme](./src/04/README.md) | [🔗 Link](http://localhost:1234/04/index.html)
-- Exercise 05: [📄 Readme](./src/05/README.md) | [🔗 Link](http://localhost:1234/05/index.html)
-- Exercise 06: [📄 Readme](./src/06/README.md) | [🔗 Link](http://localhost:1234/06/index.html)
-- Exercise 07: [📄 Readme](./src/07/README.md) | [🔗 Link](http://localhost:1234/07/index.html)
-- Exercise 08: [📄 Readme](./src/08/README.md) | [🔗 Link](http://localhost:1234/08/index.html)
-- Exercise 09: [📄 Readme](./src/09/README.md) | [🔗 Link](http://localhost:1234/09/index.html)
-- Exercise 10: [📄 Readme](./src/10/README.md) | [🔗 Link](http://localhost:1234/10/index.html) -->
+```
+until finished
+```
+
+End with an example of getting some data out of the system or using it for a little demo.
+
+## Usage <a name = "usage"></a>
+
+Add notes about how to use the system. -->
