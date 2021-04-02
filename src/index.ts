@@ -1,54 +1,81 @@
-import { createMachine, interpret } from "xstate";
+import { createMachine, assign, interpret } from "xstate";
 import "./app.css";
+import "./drag.css";
 
-const main = document.querySelector("main") as HTMLElement;
-const h1 = document.createElement("h1") as HTMLHeadingElement;
+const body = document.body as HTMLBodyElement;
+const box = document.getElementById("box") as HTMLDivElement;
 
-h1.textContent = "Click the box";
-h1.classList.add("point-h1");
-main.append(h1);
+interface Context {
+  x: number;
+  y: number;
+  px: number;
+  py: number;
+  dx: number;
+  dy: number;
+}
 
-const box = document.createElement("div");
-box.className = "box";
-(document.getElementById("root") as HTMLElement).appendChild(box);
+const machine = createMachine<Context, any>({
+  initial: "idle",
 
-const calcPoint = (_ctx: unknown, event: MouseEvent) => {
-  box.innerHTML = `<h3>${event.clientX} - ${event.clientY}</h3>`;
-  console.log(event);
-};
-const clearPoint = (_ctx: unknown, event: unknown) => {
-  box.innerHTML = "";
-};
-
-const machine = createMachine({
-  initial: "inactive",
+  context: {
+    x: 0,
+    y: 0,
+    dx: 0,
+    dy: 0,
+    px: 0,
+    py: 0,
+  },
   states: {
-    inactive: {
+    idle: {
       on: {
         mousedown: {
-          target: "active",
-          actions: [calcPoint],
+          actions: assign({
+            px: (_, event: MouseEvent) => event.clientX,
+            py: (_, event: MouseEvent) => event.clientY,
+          }),
+          target: "dragging",
         },
       },
     },
-
-    active: {
+    dragging: {
       on: {
+        mousemove: {
+          actions: assign({
+            dx: (context, event: MouseEvent) => event.clientX - context.px,
+            dy: (context, event: MouseEvent) => event.clientY - context.py,
+          }),
+        },
         mouseup: {
-          target: "inactive",
-          actions: [clearPoint],
+          actions: assign({
+            x: (context: Context) => context.x + context.dx,
+            y: (context: Context) => context.y + context.dy,
+            dx: 0,
+            dy: 0,
+            px: 0,
+            py: 0,
+          }),
+          target: "idle",
         },
       },
     },
   },
 });
 
-const service = interpret(machine).onTransition(state => {
-  console.log(state.value);
+const service = interpret(machine);
 
-  box.dataset.state = state.value as string;
+service.onTransition(state => {
+  if (state.changed) {
+    console.log(state.context);
+    box.dataset.state = state.value as string;
+    box.style.setProperty("--dx", String(state.context.dx));
+    box.style.setProperty("--dy", String(state.context.dy));
+    box.style.setProperty("--x", String(state.context.x));
+    box.style.setProperty("--y", String(state.context.y));
+  }
 });
 
 service.start();
+
 box.addEventListener("mousedown", service.send);
-box.addEventListener("mouseup", service.send);
+body.addEventListener("mousemove", service.send);
+body.addEventListener("mouseup", service.send);

@@ -1,0 +1,21 @@
+#box {
+  height: 20vmin;
+  width: 20vmin;
+  background-color: #41a9f3;
+  border: 2px solid #333;
+  border-radius: 4px;
+
+  cursor: pointer;
+  transition: all 1s ease;
+  opacity: 0.5;
+
+  left: calc(var(--x) * 1px);
+  top: calc(var(--y) * 1px);
+  transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px));
+}
+
+#box[data-state="dragging"] {
+  opacity: 1;
+  position: absolute;
+  box-shadow: 2px 3px 2px 4px #ccc;
+}
