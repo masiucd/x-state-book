@@ -2,80 +2,46 @@ import { createMachine, assign, interpret } from "xstate";
 import "./app.css";
 import "./drag.css";
 
-const body = document.body as HTMLBodyElement;
-const box = document.getElementById("box") as HTMLDivElement;
+const count = document.querySelector(".count") as HTMLHeadElement;
 
-interface Context {
-  x: number;
-  y: number;
-  px: number;
-  py: number;
-  dx: number;
-  dy: number;
+interface Ctx {
+  count: 0;
 }
 
-const machine = createMachine<Context, any>({
-  initial: "idle",
-
+const machine = createMachine({
+  id: "counter",
+  initial: "inactive",
   context: {
-    x: 0,
-    y: 0,
-    dx: 0,
-    dy: 0,
-    px: 0,
-    py: 0,
+    count: 0,
   },
   states: {
-    idle: {
+    inactive: {
       on: {
-        mousedown: {
-          actions: assign({
-            px: (_, event: MouseEvent) => event.clientX,
-            py: (_, event: MouseEvent) => event.clientY,
-          }),
-          target: "dragging",
-        },
+        click: { target: "active" },
       },
     },
-    dragging: {
+    active: {
+      entry: assign({
+        count: ({ count }, event: any) =>
+          event.target.className === "add" ? count + 1 : count - 1,
+      }),
+
       on: {
-        mousemove: {
-          actions: assign({
-            dx: (context, event: MouseEvent) => event.clientX - context.px,
-            dy: (context, event: MouseEvent) => event.clientY - context.py,
-          }),
-        },
-        mouseup: {
-          actions: assign({
-            x: (context: Context) => context.x + context.dx,
-            y: (context: Context) => context.y + context.dy,
-            dx: 0,
-            dy: 0,
-            px: 0,
-            py: 0,
-          }),
-          target: "idle",
-        },
+        click: { target: "inactive" },
       },
     },
   },
 });
 
 const service = interpret(machine);
-
 service.onTransition(state => {
   if (state.changed) {
-    console.log(state.context);
-    box.dataset.state = state.value as string;
-    box.style.setProperty("--dx", String(state.context.dx));
-    box.style.setProperty("--dy", String(state.context.dy));
-    box.style.setProperty("--x", String(state.context.x));
-    box.style.setProperty("--y", String(state.context.y));
+    const { context } = state;
+    count.innerHTML = (context as Ctx).count.toString();
   }
 });
 
-service.start();
+document.querySelector(".add")?.addEventListener("click", service.send);
+document.querySelector(".sub")?.addEventListener("click", service.send);
 
-box.addEventListener("mousedown", service.send);
-body.addEventListener("mousemove", service.send);
-body.addEventListener("mouseup", service.send);
+service.start();
