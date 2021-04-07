@@ -1,81 +1,59 @@
-import { createMachine, assign, interpret } from "xstate";
+import { createMachine, interpret } from "xstate";
 import "./app.css";
-import "./drag.css";
 
-const body = document.body as HTMLBodyElement;
-const box = document.getElementById("box") as HTMLDivElement;
+const box = document.getElementById("box") as HTMLElement;
+const off = document.getElementById("off") as HTMLElement;
+const on = document.getElementById("on") as HTMLElement;
+const switchBtn = document.getElementById("switch") as HTMLElement;
 
-interface Context {
-  x: number;
-  y: number;
-  px: number;
-  py: number;
-  dx: number;
-  dy: number;
-}
-
-const machine = createMachine<Context, any>({
-  initial: "idle",
-
-  context: {
-    x: 0,
-    y: 0,
-    dx: 0,
-    dy: 0,
-    px: 0,
-    py: 0,
-  },
+const machine = createMachine({
+  initial: "hidden",
   states: {
-    idle: {
+    hidden: {
       on: {
-        mousedown: {
-          actions: assign({
-            px: (_, event: MouseEvent) => event.clientX,
-            py: (_, event: MouseEvent) => event.clientY,
-          }),
-          target: "dragging",
-        },
+        TURN_ON: "visible.hist",
       },
     },
-    dragging: {
+    visible: {
+      initial: "light",
+      states: {
+        light: {
+          on: {
+            SWITCH: "dark",
+          },
+        },
+        dark: {
+          on: {
+            SWITCH: "light",
+          },
+        },
+        hist: {
+          type: "history",
+        },
+      },
       on: {
-        mousemove: {
-          actions: assign({
-            dx: (context, event: MouseEvent) => event.clientX - context.px,
-            dy: (context, event: MouseEvent) => event.clientY - context.py,
-          }),
-        },
-        mouseup: {
-          actions: assign({
-            x: (context: Context) => context.x + context.dx,
-            y: (context: Context) => context.y + context.dy,
-            dx: 0,
-            dy: 0,
-            px: 0,
-            py: 0,
-          }),
-          target: "idle",
-        },
+        TURN_OFF: "hidden",
       },
     },
   },
 });
 
-const service = interpret(machine);
+const service = interpret(machine)
+  .onTransition(state => {
+    const last = state.toStrings()[state.toStrings().length - 1];
+    document.body.dataset.theme = last;
+    box.dataset.state = state.toStrings()[0];
+  })
+  .start();
 
-service.onTransition(state => {
-  if (state.changed) {
-    console.log(state.context);
-    box.dataset.state = state.value as string;
-    box.style.setProperty("--dx", String(state.context.dx));
-    box.style.setProperty("--dy", String(state.context.dy));
-    box.style.setProperty("--x", String(state.context.x));
-    box.style.setProperty("--y", String(state.context.y));
-  }
+on.addEventListener("click", () => {
+  service.send("TURN_ON");
 });
 
-service.start();
+off.addEventListener("click", () => {
+  service.send("TURN_OFF");
+});
 
-box.addEventListener("mousedown", service.send);
-body.addEventListener("mousemove", service.send);
-body.addEventListener("mouseup", service.send);
+switchBtn.addEventListener("click", () => {
+  service.send("SWITCH");
+});
