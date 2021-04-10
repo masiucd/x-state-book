@@ -4,14 +4,7 @@ import { createMachine } from "xstate";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
 import useTheme from "@hooks/theme";
-
-const Wrapper = styled.section`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+import { Wrapper } from "@components/styles/wrappers";
 
 const Content = styled.div`
   min-width: 20em;

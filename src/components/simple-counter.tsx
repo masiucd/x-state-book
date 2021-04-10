@@ -1,14 +1,17 @@
 import * as React from "react";
 import { createMachine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
+import { Wrapper } from "@components/styles/wrappers";
 
 interface CountCtx {
   count: number;
 }
 
-type ToggleEvent = {
-  type: "TOGGLE";
-};
+type ToggleEvent =
+  | {
+      type: "TOGGLE";
+    }
+  | { type: "RESET" };
 
 const countMachine = createMachine<CountCtx, ToggleEvent>({
   id: "counter",
@@ -30,22 +33,32 @@ const countMachine = createMachine<CountCtx, ToggleEvent>({
         TOGGLE: {
           target: "inactive",
         },
+        RESET: {
+          actions: assign({ count: 0 }),
+        },
       },
     },
   },
 });
 
 const SimpleCounter = (): JSX.Element => {
-  const [current, send] = useMachine(countMachine);
-  const active = current.matches("active");
+  const [state, send] = useMachine(countMachine);
+  const active = state.matches("active");
 
   return (
-    <div>
-      <h1>{current.context.count}</h1>
+    <Wrapper>
+      <h1>{state.value}</h1>
+      <h3>{state.context.count}</h3>
       <button type="button" onClick={() => send("TOGGLE")}>
         {active ? "Now I am Active" : "No I am Inactive"}
       </button>
-    </div>
+
+      {state.context.count > 0 && state.value === "inactive" && (
+        <button type="button" onClick={() => send("RESET")}>
+          Reset
+        </button>
+      )}
+    </Wrapper>
   );
 };
 

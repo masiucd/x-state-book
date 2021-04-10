@@ -1,8 +1,10 @@
-# mmasiu-xstate
+# X-State sandbox
 
 ## Table of Contents
 
 - [About](#about)
+- [Assign](#assign)
+- [State](#state)
 
 ## About <a name = "about"></a>
 
@@ -56,3 +58,21 @@ elBox.addEventListener("mouseup", event => {
 
 ![image](/n.svg)
 ![image](/x.gif)
+
+## Assign <a name="assign></a>
+
+When you working with `context` in your state machine, the assign function is what you want to use when update the context object.
+Context is a pure function that returns a new context object.
+
+```js
+   actions: assign({
+    // increment the current count by the event value
+    count: (context, event) => context.count + event.value,
+    // assign static value to the message (no function needed)
+    message: 'Count changed'
+  }),
+```
+
+## State <a name="state"></a
+
+Two important properties ont the state object, we have `state.value` that shows us the `finite state` and `state.context` shows us the extended state

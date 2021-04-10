@@ -16,8 +16,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
-      "@context/*": ["context/*"],
-      "@styles/*": ["styles/*"]
+      "@context/*": ["context/*"]
     }
   },
   "include": ["src"]
