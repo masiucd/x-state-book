@@ -1,10 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMachine } from "@xstate/react";
 import { createMachine } from "xstate";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "@emotion/styled";
+import useTheme from "@hooks/theme";
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  min-width: 20em;
+  padding: 1em;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+
+  .btns {
+    display: flex;
+  }
+`;
 
 type ThemeMachineEvents = { type: "TURN_ON" } | { type: "TURN_OFF" } | { type: "SWITCH" };
 
@@ -53,11 +73,17 @@ interface BoxProps {
   isAnimating: boolean;
   switchThemeHandler: () => void;
 }
+
 const Box = ({ isAnimating, switchThemeHandler }: BoxProps) => {
   return (
     <AnimatePresence>
       {isAnimating && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          layout
+        >
           <button onClick={switchThemeHandler}>Switch theme </button>
         </motion.div>
       )}
@@ -69,30 +95,27 @@ const SimpleThemeToggler = (): JSX.Element => {
   const [current, send] = useMachine(themeMachine);
   const isVisible = current.matches("visible");
   const isDarkTheme = current.matches("visible.dark");
-  console.log({ isDarkTheme });
-
-  useEffect(() => {
-    if (isDarkTheme) {
-      document.body.dataset.theme = "dark";
-    } else {
-      document.body.dataset.theme = "light";
-    }
-  }, [isDarkTheme]);
+  const { setTheme } = useTheme("theme");
 
   const switchThemeHandler = (): void => {
     send("SWITCH");
+    setTheme(isDarkTheme ? "dark" : "light");
   };
 
   return (
     <Wrapper>
-      <h1>Theme toggler</h1>
-      <Box isAnimating={isVisible} switchThemeHandler={switchThemeHandler} />
-      <button type="button" onClick={() => send("TURN_ON")}>
-        open
-      </button>
-      <button type="button" onClick={() => send("TURN_OFF")}>
-        Close
-      </button>
+      <Content>
+        <h1>Theme toggler</h1>
+        <Box isAnimating={isVisible} switchThemeHandler={switchThemeHandler} />
+        <div className="btns">
+          <button type="button" onClick={() => send("TURN_ON")}>
+            open
+          </button>
+          <button type="button" onClick={() => send("TURN_OFF")}>
+            Close
+          </button>
+        </div>
+      </Content>
     </Wrapper>
   );
 };
