@@ -55,3 +55,4 @@ elBox.addEventListener("mouseup", event => {
 ```
 
 ![image](/n.svg)
+![image](/x.gif)
