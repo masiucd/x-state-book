@@ -1,12 +1,8 @@
 import React from "react";
-import SimpleToggle from "./components/simple-counter";
+import Routes from "./routes";
 
 const App = (): JSX.Element => {
-  return (
-    <div>
-      <SimpleToggle />
-    </div>
-  );
+  return <Routes />;
 };
 
 export default App;

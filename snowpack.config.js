@@ -2,6 +2,7 @@
 // See all supported options: https://www.snowpack.dev/#configuration
 
 /** @type {import("snowpack").SnowpackUserConfig } */
+// eslint-disable-next-line no-undef
 module.exports = {
   mount: {
     public: {
@@ -10,7 +11,8 @@ module.exports = {
     },
     src: "/dist",
   },
-  plugins: ["@snowpack/plugin-typescript"],
+  plugins: ["@snowpack/plugin-typescript", "@snowpack/plugin-react-refresh"],
+  routes: [{ match: "routes", src: ".*", dest: "/index.html" }],
   // installOptions: {},
   // devOptions: {},
   // buildOptions: {},
