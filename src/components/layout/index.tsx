@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { GlobalStyles } from "../styles/global-styles";
+import Nav from "./nav";
 
 const Main = styled.main`
   max-width: var(--max-width);
@@ -15,6 +16,7 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <GlobalStyles />
+      <Nav />
       <Main>{children}</Main>
     </>
   );

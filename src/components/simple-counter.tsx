@@ -53,7 +53,7 @@ const SimpleCounter = (): JSX.Element => {
         {active ? "Now I am Active" : "No I am Inactive"}
       </button>
 
-      {state.context.count > 0 && state.value === "inactive" && (
+      {state.context.count > 0 && state.value === "active" && (
         <button type="button" onClick={() => send("RESET")}>
           Reset
         </button>

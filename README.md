@@ -5,6 +5,7 @@
 - [About](#about)
 - [Assign](#assign)
 - [State](#state)
+- [Actions](#actions)
 
 ## About <a name = "about"></a>
 
@@ -76,3 +77,108 @@ Context is a pure function that returns a new context object.
 ## State <a name="state"></a
 
 Two important properties ont the state object, we have `state.value` that shows us the `finite state` and `state.context` shows us the extended state
+
+## Actions <a name="actions"></a
+
+actions is our function that will cause some kind of side effect in our machine, either update the context or perhaps trigger some `DOM` event.
+One approach that I like is to define the actions as object in our `machine`.
+Then we could have a much generic machine where we can change the logic.
+
+```jsx
+import { createMachine, assign } from "xstate";
+import { useMachine } from "@xstate/react";
+
+export const timerMachine = createMachine(
+  {
+    initial: "idle",
+    context: {
+      duration: 60,
+      elapsed: 0,
+      interval: 0.1,
+    },
+    states: {
+      idle: {
+        entry: assign({
+          duration: 60,
+          elapsed: 0,
+        }),
+        on: {
+          TOGGLE: "running",
+        },
+      },
+      running: {
+        on: {
+          TOGGLE: "paused",
+          ADD_MINUTE: {
+            actions: "incrementCount",
+          },
+        },
+      },
+      paused: {
+        on: {
+          TOGGLE: "running",
+          RESET: "idle",
+        },
+      },
+    },
+  },
+  {
+    actions: {
+      incrementCount: assign({
+        duration: context => context.duration + 60,
+      }),
+    },
+  }
+);
+
+export const Timer = () => {
+  const [state, send] = useMachine(timerMachine, {
+    actions: {
+      incrementCount: assign({
+        duration: context => context.duration + 1,
+      }),
+    },
+  });
+
+  return (
+    <div
+      className="timer"
+      data-state={state.value}
+      style={{
+        "--duration": state.context.duration,
+        "--elapsed": state.context.elapsed,
+        "--interval": state.context.interval,
+      }}
+    >
+      <header>
+        <h1>Exercise 02</h1>
+      </header>
+      <ProgressCircle />
+      <div className="display">
+        <div className="label">{state.value}</div>
+        <div className="elapsed" onClick={() => send({ type: "TOGGLE" })}>
+          {Math.ceil(state.context.duration - state.context.elapsed)}
+        </div>
+        <div className="controls">
+          {state.value !== "running" && <button onClick={() => send("RESET")}>Reset</button>}
+
+          <button onClick={() => send("ADD_MINUTE")}>+ 1:00</button>
+        </div>
+      </div>
+      <div className="actions">
+        {state.value === "running" && (
+          <button onClick={() => send({ type: "TOGGLE" })} title="Pause timer">
+            <FontAwesomeIcon icon={faPause} />
+          </button>
+        )}
+
+        {(state.value === "paused" || state.value === "idle") && (
+          <button onClick={() => send({ type: "TOGGLE" })} title="Start timer">
+            <FontAwesomeIcon icon={faPlay} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+```

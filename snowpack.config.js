@@ -11,12 +11,17 @@ module.exports = {
     },
     src: "/dist",
   },
-  plugins: ["@snowpack/plugin-typescript", "@snowpack/plugin-react-refresh"],
+  plugins: [
+    "@snowpack/plugin-typescript",
+    "@snowpack/plugin-react-refresh",
+    "@snowpack/plugin-webpack",
+  ],
   routes: [{ match: "routes", src: ".*", dest: "/index.html" }],
   alias: {
     "@components": "./src/components",
     "@hooks": "./src/hooks",
   },
+
   // installOptions: {},
   // devOptions: {},
   // buildOptions: {},

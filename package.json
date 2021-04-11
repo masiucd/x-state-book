@@ -6,7 +6,8 @@
   "author": "Marcell Ciszek <marcell.ciszek@etraveligroup.com>",
   "license": "MIT",
   "scripts": {
-    "start": "snowpack dev"
+    "dev": "snowpack dev",
+    "build": "snowpack build"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",

@@ -40,6 +40,7 @@ export const GlobalStyles = (): JSX.Element => {
           --button-text: var(--dark);
           --link-color: var(--dark2);
           --stroke-color: var(--dark2);
+
           /* Styles */
           --line: solid 1px var(--lineColor);
           /* Elevations */
