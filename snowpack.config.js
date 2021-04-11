@@ -14,7 +14,12 @@ module.exports = {
   plugins: [
     "@snowpack/plugin-typescript",
     "@snowpack/plugin-react-refresh",
-    "@snowpack/plugin-webpack",
+    [
+      "@snowpack/plugin-webpack",
+      {
+        htmlMinifierOptions: false,
+      },
+    ],
   ],
   routes: [{ match: "routes", src: ".*", dest: "/index.html" }],
   alias: {

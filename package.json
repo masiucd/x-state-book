@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "snowpack dev",
-    "build": "snowpack build"
+    "build": "snowpack build && touch build/_redirects && echo  \"/*    /index.html   200\" >> build/_redirects"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",
