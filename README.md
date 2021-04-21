@@ -6,6 +6,7 @@
 - [Assign](#assign)
 - [State](#state)
 - [Actions](#actions)
+- [Final](#final)
 
 ## About <a name = "about"></a>
 
@@ -74,11 +75,11 @@ Context is a pure function that returns a new context object.
   }),
 ```
 
-## State <a name="state"></a
+## State <a name="state"></a>
 
 Two important properties ont the state object, we have `state.value` that shows us the `finite state` and `state.context` shows us the extended state
 
-## Actions <a name="actions"></a
+## Actions <a name="actions"></a>
 
 actions is our function that will cause some kind of side effect in our machine, either update the context or perhaps trigger some `DOM` event.
 One approach that I like is to define the actions as object in our `machine`.
@@ -182,3 +183,9 @@ export const Timer = () => {
   );
 };
 ```
+
+## [Final](name="#final")
+
+When we are done with a state we can use the `final` property.
+This is a case to use `onDone` as well. `onDone` will only run as soon we hit the `final` state.
+To we can for example transition to another state within the `onDone` property.
