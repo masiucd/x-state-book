@@ -1,17 +1,17 @@
-import * as React from "react";
-import { createMachine, assign } from "xstate";
-import { useMachine } from "@xstate/react";
-import { Wrapper } from "@components/styles/wrappers";
+import * as React from "react"
+import { createMachine, assign } from "xstate"
+import { useMachine } from "@xstate/react"
+// import { Wrapper } from "@components/styles/wrappers";
 
 interface CountCtx {
-  count: number;
+  count: number
 }
 
 type ToggleEvent =
   | {
-      type: "TOGGLE";
+      type: "TOGGLE"
     }
-  | { type: "RESET" };
+  | { type: "RESET" }
 
 const countMachine = createMachine<CountCtx, ToggleEvent>({
   id: "counter",
@@ -39,14 +39,14 @@ const countMachine = createMachine<CountCtx, ToggleEvent>({
       },
     },
   },
-});
+})
 
 const SimpleCounter = (): JSX.Element => {
-  const [state, send] = useMachine(countMachine);
-  const active = state.matches("active");
+  const [state, send] = useMachine(countMachine)
+  const active = state.matches("active")
 
   return (
-    <Wrapper>
+    <>
       <h1>{state.value}</h1>
       <h3>{state.context.count}</h3>
       <button type="button" onClick={() => send("TOGGLE")}>
@@ -58,8 +58,8 @@ const SimpleCounter = (): JSX.Element => {
           Reset
         </button>
       )}
-    </Wrapper>
-  );
-};
+    </>
+  )
+}
 
-export default SimpleCounter;
+export default SimpleCounter

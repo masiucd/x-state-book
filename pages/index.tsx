@@ -1,5 +1,5 @@
-import Head from "next/head";
-import React from "react";
+import Head from "next/head"
+import Counter from "@components/counter"
 
 export default function Home(): JSX.Element {
   return (
@@ -8,7 +8,7 @@ export default function Home(): JSX.Element {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>hello</h1>
+      <Counter />
     </>
-  );
+  )
 }

@@ -3,7 +3,7 @@ const BlogPage = () => {
     <div>
       <h1>Blog Page</h1>
     </div>
-  );
-};
+  )
+}
 
-export default BlogPage;
+export default BlogPage
