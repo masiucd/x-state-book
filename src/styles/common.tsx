@@ -16,4 +16,11 @@ export const resetButtonStyles = css`
   margin: 0.5rem auto;
   outline: none;
   transition: 400ms ease-in-out all;
+  cursor: pointer;
+  &:active {
+    position: relative;
+    top: 0.4rem;
+    box-shadow: ${elevations.shadow2Xl};
+    background-color: ${colorIntentions.danger};
+  }
 `
