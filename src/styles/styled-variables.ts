@@ -11,7 +11,7 @@ export const elements = {
   p: "var(--paragraph)",
   button: "var(--button)",
   buttonText: "var(--button-text)",
-  linkColor: "var(--link-color)",,
+  linkColor: "var(--link-color)",
   strokeColor: "var(--strokeColor)",
 }
 

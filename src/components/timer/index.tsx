@@ -2,7 +2,9 @@ import React, { useEffect } from "react"
 import { createMachine, assign } from "xstate"
 import { useMachine } from "@xstate/react"
 import styled from "@emotion/styled"
-import { useToggle } from "@hooks/toggle"
+import { colorIntentions } from "@styles/styled-variables"
+import { resetButtonStyles } from "@styles/common"
+import { AnimatePresence, motion } from "framer-motion"
 
 interface TimerContext {
   duration: number
@@ -14,6 +16,8 @@ type TimerEvents =
   | { type: "TOGGLE" }
   | { type: "TICK" }
   | { type: "ADD_MINUTE" }
+  | { type: "ADD_HOUR" }
+  | { type: "ADD_SECONDS" }
   | { type: "RESET" }
 
 const timerExpired = (ctx: TimerContext) => ctx.elapsed >= ctx.duration
@@ -48,8 +52,14 @@ const timeMachine = createMachine<TimerContext, TimerEvents>(
           TOGGLE: {
             target: "paused",
           },
+          ADD_HOUR: {
+            actions: "addHour",
+          },
           ADD_MINUTE: {
-            actions: ["addMinute"],
+            actions: "addMinute",
+          },
+          ADD_SECONDS: {
+            actions: "addSeconds",
           },
         },
       },
@@ -83,23 +93,64 @@ const timeMachine = createMachine<TimerContext, TimerEvents>(
       addMinute: assign({
         duration: ctx => ctx.duration + 60,
       }),
+      addHour: assign({
+        duration: ctx => ctx.duration + 3600,
+      }),
+      addSeconds: assign({
+        duration: ctx => ctx.duration + 30,
+      }),
     },
   }
 )
 
-const TimerBody = styled.div``
+const TimerWrapper = styled.section`
+  min-height: 75vh;
+  border: 2px solid red;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+`
+
+const TimerBody = styled.div`
+  border: 2px solid ${colorIntentions.primary};
+  padding: 1rem;
+`
+
+const Time = styled.div`
+  border: 2px solid red;
+  text-align: center;
+  cursor: pointer;
+  button {
+    ${resetButtonStyles}
+    font-size: 2rem;
+    border: none;
+    background: none;
+    &:disabled {
+      color: ${colorIntentions.textColor};
+    }
+    span {
+      display: block;
+    }
+  }
+`
+
+const ConfigButtons = styled.div``
+
+const PauseButton = styled.button`
+  ${resetButtonStyles}
+  border: none;
+`
 
 const calculateTime = (duration: number): string => {
   const hours = ~~(duration / 3600)
   const minutes = ~~((duration % 3600) / 60)
   const seconds = ~~duration % 60
-
-  return ` ${hours}: ${minutes}: ${seconds} `
+  return `${hours}: ${minutes}: ${seconds} `
 }
 
 const Timer = (): JSX.Element => {
   const [state, send] = useMachine(timeMachine)
-  const { state: isDecimal, toggle: toggleIsDecimal } = useToggle()
+
   const { duration, elapsed, interval } = state.context
 
   useEffect(() => {
@@ -114,31 +165,59 @@ const Timer = (): JSX.Element => {
   }, [interval, send, state.value])
 
   return (
-    <div>
+    <TimerWrapper>
       <h3>current state {state.value} </h3>
 
       <TimerBody>
-        <button type="button" onClick={() => send("TOGGLE")} disabled={state.value === "running"}>
+        {/* <button type="button" onClick={() => send("TOGGLE")} disabled={state.value === "running"}>
           Start
-        </button>
+        </button> */}
 
-        {isDecimal ? (
+        {/* {isDecimal ? (
           <strong>{(duration - elapsed).toFixed(2)}</strong>
         ) : (
           <strong>{Math.ceil(duration - elapsed)}</strong>
-        )}
+        )} */}
 
-        <strong>{calculateTime(duration - elapsed)}</strong>
-
-        <button type="button" onClick={() => send("TOGGLE")} disabled={state.value === "paused"}>
-          pause
-        </button>
+        <Time>
+          <motion.button
+            type="button"
+            onClick={() => send("TOGGLE")}
+            disabled={state.value === "running"}
+          >
+            <motion.span
+              animate={{
+                scale: state.value === "paused" ? 1.4 : 1,
+              }}
+              transition={{ duration: 0.5, flip: state.value === "paused" ? Infinity : 0 }}
+            >
+              {calculateTime(duration - elapsed)}
+            </motion.span>
+          </motion.button>
+        </Time>
 
         {state.value === "running" && (
-          <button type="button" onClick={() => send("ADD_MINUTE")}>
-            Add a minute
-          </button>
+          <PauseButton type="button" aria-label="pause" onClick={() => send("TOGGLE")}>
+            ⏸
+          </PauseButton>
         )}
+        <AnimatePresence>
+          {state.value === "running" && (
+            <ConfigButtons>
+              <button type="button" onClick={() => send("ADD_HOUR")}>
+                Add a hour
+              </button>
+              <button type="button" onClick={() => send("ADD_MINUTE")}>
+                Add a minute
+              </button>
+              <button type="button" onClick={() => send("ADD_SECONDS")}>
+                add 30 sec
+              </button>
+            </ConfigButtons>
+          )}
+        </AnimatePresence>
+        {/* 
+
 
         {state.value === "paused" && (
           <button type="button" onClick={() => send("RESET")}>
@@ -148,9 +227,9 @@ const Timer = (): JSX.Element => {
 
         <button onClick={toggleIsDecimal}>
           {isDecimal ? "without decimals" : "with decimals"}
-        </button>
+        </button> */}
       </TimerBody>
-    </div>
+    </TimerWrapper>
   )
 }
 

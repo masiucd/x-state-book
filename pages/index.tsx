@@ -5,7 +5,7 @@ import Timer from "@components/timer"
 
 export default function Home(): JSX.Element {
   return (
-    <Layout isFluid>
+    <Layout>
       <Head title="home" />
       <Counter />
       <Timer />
