@@ -7,6 +7,7 @@
 - [State](#state)
 - [Actions](#actions)
 - [Final](#final)
+- [Transition from child to parent](#transition_from_child_to_parent)
 
 ## About <a name = "about"></a>
 
@@ -17,9 +18,9 @@ You could see your machine as a pure blueprint, like a pure `class`.
 The `interpret` function works like a singleton that only creates one instance of the class.
 
 ```js
-import { createMachine, interpret } from "xstate";
+import { createMachine, interpret } from "xstate"
 
-const elBox = document.querySelector("#box");
+const elBox = document.querySelector("#box")
 
 // blueprint to use and create instances of
 const machine = createMachine({
@@ -40,22 +41,22 @@ const machine = createMachine({
       },
     },
   },
-});
+})
 
 // like a singleton
 const service = interpret(machine).onTransition(state => {
-  elBox.dataset.state = state.value;
-});
+  elBox.dataset.state = state.value
+})
 
-service.start();
+service.start()
 
 elBox.addEventListener("mousedown", event => {
-  service.send(event);
-});
+  service.send(event)
+})
 
 elBox.addEventListener("mouseup", event => {
-  service.send(event);
-});
+  service.send(event)
+})
 ```
 
 ![image](/n.svg)
@@ -86,8 +87,8 @@ One approach that I like is to define the actions as object in our `machine`.
 Then we could have a much generic machine where we can change the logic.
 
 ```jsx
-import { createMachine, assign } from "xstate";
-import { useMachine } from "@xstate/react";
+import { createMachine, assign } from "xstate"
+import { useMachine } from "@xstate/react"
 
 export const timerMachine = createMachine(
   {
@@ -130,7 +131,7 @@ export const timerMachine = createMachine(
       }),
     },
   }
-);
+)
 
 export const Timer = () => {
   const [state, send] = useMachine(timerMachine, {
@@ -139,7 +140,7 @@ export const Timer = () => {
         duration: context => context.duration + 1,
       }),
     },
-  });
+  })
 
   return (
     <div
@@ -180,8 +181,8 @@ export const Timer = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 ```
 
 ## [Final](name="#final")
@@ -189,3 +190,76 @@ export const Timer = () => {
 When we are done with a state we can use the `final` property.
 This is a case to use `onDone` as well. `onDone` will only run as soon we hit the `final` state.
 To we can for example transition to another state within the `onDone` property.
+
+# [Transitions From Child to parent](name="#transition_from_child_to_parent")
+
+There are different ways to handle how we could transition from a child state to a parent state.
+One way is to target the parent id with the `#`symbol.
+
+```js
+export const timerMachine = createMachine({
+  id: "timer",
+  initial: "idle",
+  context: {
+    duration: 60,
+    elapsed: 0,
+    interval: 0.1,
+  },
+  states: {
+    idle:{
+      id: "idle"
+      // some logic
+    },
+    active:{
+      states:{
+        child: {
+          on :{
+            TO_IDLE:{
+              target: "#idle"
+            }
+          }
+        }
+      }
+    },
+    paused:{},
+  }
+
+```
+
+Another approach is to use `final states` which I try to use instead of targeting the id of the parent state.
+Then on the parent state we can add a `onDone` property that will trigger when we hit a `final` state
+
+```js
+export const timerMachine = createMachine({
+  id: "timer",
+  initial: "idle",
+  context: {
+    duration: 60,
+    elapsed: 0,
+    interval: 0.1,
+  },
+  states: {
+    idle:{
+      // some logic
+    },
+    active:{
+      states:{
+        overTime:{
+          after:{
+            2000: 'timeOver'
+          }
+          on :{
+            TOGGLE: undefined
+          }
+        },
+        timeOver:{
+          type:"final"
+        },
+      }
+      onDone:"idle" // we go back to idle when we hit a final state
+    },
+    paused:{},
+  }
+})
+
+```

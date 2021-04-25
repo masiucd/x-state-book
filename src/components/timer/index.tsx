@@ -6,7 +6,7 @@ import { resetButtonStyles } from "@styles/common"
 import { AnimatePresence, motion } from "framer-motion"
 import timeMachine from "./machine"
 
-const TimerWrapper = styled.section`
+const TimerWrapper = styled(motion.section)`
   min-height: 75vh;
   display: grid;
   align-items: center;
@@ -110,7 +110,11 @@ const Timer = (): JSX.Element => {
   }, [interval, send, state.value])
 
   return (
-    <TimerWrapper>
+    <TimerWrapper
+      initial={{ opacity: 0, y: "-100%" }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: "-100%" }}
+    >
       <TimerBody>
         <H3>
           current state <span>{state.value}</span>{" "}
