@@ -8,6 +8,7 @@
 - [Actions](#actions)
 - [Final](#final)
 - [Transition from child to parent](#transition_from_child_to_parent)
+- [invoke](#invoke)
 
 ## About <a name = "about"></a>
 
@@ -185,13 +186,13 @@ export const Timer = () => {
 }
 ```
 
-## [Final](name="#final")
+## [Final](final)
 
 When we are done with a state we can use the `final` property.
 This is a case to use `onDone` as well. `onDone` will only run as soon we hit the `final` state.
 To we can for example transition to another state within the `onDone` property.
 
-# [Transitions From Child to parent](name="#transition_from_child_to_parent")
+## [Transitions From Child to parent](name="#transition_from_child_to_parent")
 
 There are different ways to handle how we could transition from a child state to a parent state.
 One way is to target the parent id with the `#`symbol.
@@ -263,3 +264,10 @@ export const timerMachine = createMachine({
 })
 
 ```
+
+## [Invoke](#invoke)
+
+With in the invoke property we can run fetch calls, callbacks, or even direct to another machine.
+`src` takes a function with `context and event` where you can run your logic, for example a `promise`.
+If everything goes right you have the `onDone` property that you could use to transition to another state.
+For handling errors we use the `onError` property.
