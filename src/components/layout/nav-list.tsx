@@ -1,11 +1,11 @@
-import styled from "@emotion/styled"
 import { above } from "@styles/media-query"
 import React from "react"
 import { ListData } from "types"
 import Link from "next/link"
+import { css, cx } from "@emotion/css"
+import { motion } from "framer-motion"
 
-const NavListStyles = styled.ul`
-  border: 2px solid blue;
+const navListStyles = css`
   display: flex;
   justify-content: space-evenly;
   flex: 1;
@@ -18,10 +18,18 @@ const NavListStyles = styled.ul`
 
 interface ListProps {
   listData: ListData[]
+  className?: string
 }
 
-const NavList = ({ listData }: ListProps): JSX.Element => (
-  <NavListStyles>
+const NavList = ({ listData, className }: ListProps): JSX.Element => (
+  <motion.ul
+    layout
+    initial={{ opacity: 0, y: "-50%" }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: "-50%" }}
+    className={cx(navListStyles, className)}
+    transition={{ duration: 0.4, ease: "easeOut", staggerChildren: 0.2 }}
+  >
     {listData.map(({ name, path }) => (
       <li key={name}>
         <Link href={path}>
@@ -29,7 +37,7 @@ const NavList = ({ listData }: ListProps): JSX.Element => (
         </Link>
       </li>
     ))}
-  </NavListStyles>
+  </motion.ul>
 )
 
 export default NavList

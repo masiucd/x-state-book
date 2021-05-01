@@ -1,14 +1,17 @@
 import styled from "@emotion/styled"
 import useMediaQuery from "@hooks/media-query"
+import { useToggle } from "@hooks/toggle"
 import { above, below } from "@styles/media-query"
+import Link from "next/link"
 import React from "react"
 import Nav from "./nav"
+import ToggleIcon from "./toggle-icon"
 
 const StyledHeader = styled.header`
-  border: 2px solid red;
   min-height: 10rem;
   display: grid;
   grid-template-columns: 1fr;
+  position: relative;
   @media ${above.tabletL} {
     grid-gap: 1rem;
     grid-template-columns: 1fr 2fr;
@@ -20,17 +23,24 @@ const TitleWrapper = styled.div`
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
+  a {
+    font-size: 3em;
+  }
 `
 
 const Header = (): JSX.Element => {
-  const isMatched = useMediaQuery(below.tablet)
+  const { state: isOn, toggle: toggleIsOn } = useToggle()
+  const isToggleIconMatched = useMediaQuery(below.tablet)
+
   return (
     <StyledHeader>
       <TitleWrapper>
-        <h3>xstate</h3>
+        <Link href="/">
+          <a>xstate</a>
+        </Link>
       </TitleWrapper>
-      {isMatched && <p>navIcon</p>}
-      <Nav />
+      {isToggleIconMatched && <ToggleIcon isOn={isOn} toggleIsOn={toggleIsOn} />}
+      <Nav isOn={isOn} />
     </StyledHeader>
   )
 }

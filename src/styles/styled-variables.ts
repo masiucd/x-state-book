@@ -7,12 +7,14 @@ export const colorIntentions = {
   borderLeftColor: "var(--borderLeftColor)",
 }
 export const elements = {
-  bg: "var(----bg)",
+  bg: "var(--bg)",
   p: "var(--paragraph)",
   button: "var(--button)",
   buttonText: "var(--button-text)",
   linkColor: "var(--link-color)",
   strokeColor: "var(--strokeColor)",
+  common: "var(--common)",
+  commonText: "var(--common-text)",
 }
 
 export const elevations = {

@@ -40,7 +40,9 @@ const GlobalStyles = (): JSX.Element => {
           --button: var(--green);
           --button-text: var(--dark);
           --link-color: var(--dark2);
-          --strokeColor: var(--dark2);
+          --strokeColor: var(--green);
+          --common: var(--darkBlue);
+          --common-text: var(--white);
 
           /* Styles */
 
@@ -57,8 +59,8 @@ const GlobalStyles = (): JSX.Element => {
           --shadowOutline: 0 0 0 3px rgba(66, 153, 225, 0.5);
 
           /* Type */
-          --headingFont: "Space Mono", monospace;
-          --bodyFont: "Work Sans", sans-serif;
+          --headingFont: "Karla", sans-serif;
+          --bodyFont: "Spectral", serif;
           --h1: 3.052em;
           --h2: 2.441em;
           --h3: 1.953em;
@@ -118,6 +120,7 @@ const GlobalStyles = (): JSX.Element => {
         a {
           text-decoration: none;
           color: var(--link-color);
+          font-family: var(--headingFont);
         }
         h1,
         h2,
@@ -126,6 +129,10 @@ const GlobalStyles = (): JSX.Element => {
         h5,
         h6 {
           font-family: var(--headingFont);
+        }
+        p {
+          font-family: var(--bodyFont);
+          margin-bottom: 0.5rem;
         }
       `}
     />
