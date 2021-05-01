@@ -186,13 +186,13 @@ export const Timer = () => {
 }
 ```
 
-## [Final](final)
+## [Final](#final)
 
 When we are done with a state we can use the `final` property.
 This is a case to use `onDone` as well. `onDone` will only run as soon we hit the `final` state.
 To we can for example transition to another state within the `onDone` property.
 
-## [Transitions From Child to parent](name="#transition_from_child_to_parent")
+## [Transitions From Child to parent](#transition_from_child_to_parent)
 
 There are different ways to handle how we could transition from a child state to a parent state.
 One way is to target the parent id with the `#`symbol.
@@ -271,3 +271,16 @@ With in the invoke property we can run fetch calls, callbacks, or even direct to
 `src` takes a function with `context and event` where you can run your logic, for example a `promise`.
 If everything goes right you have the `onDone` property that you could use to transition to another state.
 For handling errors we use the `onError` property.
+
+## [Actors](#actors)
+
+![actors-model](actors.svg)
+Works like smaller individually states. Actors are very common if you are coming from a `micro-service` architecture.
+[Actors model in 10min](https://www.brianstorti.com/the-actor-model/)
+`Actors` sends events to each other both front and back. An `actors` local state is private, unless we want to share the state with other actors by sending the state as an event.
+
+### Three things is happening when us actors.
+
+- A finite number of messages can be sent to other actors.
+- A finite number of new actors can be created
+- The local state of the actor might be changed depending on what we do.
