@@ -1,6 +1,6 @@
 import { above } from "@styles/media-query"
 import React from "react"
-import { ListData } from "types"
+import { ListData } from "@utils/types"
 import Link from "next/link"
 import { css, cx } from "@emotion/css"
 import { motion } from "framer-motion"

@@ -20,6 +20,7 @@
       "@context/*": ["context/*"],
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
+      "@types/*": ["types/*"],
       "@test-utils/*": ["test-utils/*"]
     }
   },

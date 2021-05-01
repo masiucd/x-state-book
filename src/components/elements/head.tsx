@@ -4,7 +4,7 @@ import Head from "next/head"
 interface HeadComponentProps {
   title?: string
 }
-const HeadComponent = ({ title = "x-state" }: HeadComponentProps) => {
+const HeadComponent = ({ title = "x-state" }: HeadComponentProps): JSX.Element => {
   return (
     <Head>
       <title>{title} </title>

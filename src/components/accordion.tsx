@@ -1,6 +1,6 @@
 import React from "react"
-import Counter from "@components/counter"
-import Timer from "@components/timer"
+import Counter from "@components/machines/counter"
+import Timer from "@components/machines/timer"
 import { AnimatePresence, motion } from "framer-motion"
 import styled from "@emotion/styled"
 
