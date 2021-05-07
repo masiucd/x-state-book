@@ -14,3 +14,14 @@ export interface GithubUser {
   type: string
   location: string
 }
+
+export type FieldType = "slug" | "content" | "title" | "spoiler" | "author" | "date"
+
+export interface Field {
+  slug: string
+  content: string
+  title: string
+  spoiler: string
+  author: string
+  date: string
+}
