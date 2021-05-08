@@ -41,8 +41,7 @@ export const getPostBySlug = (slug: string, fields: FieldType[] = []): Field => 
 export const getAllPosts = (fields: FieldType[] = []): Field[] => {
   const slugs = getPostsSlugs(getPostsDirectory())
 
-  return slugs.map(slug => getPostBySlug(slug, fields))
-  // TODO: Fix type
-  // // @ts-ignore
-  // .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+  return slugs
+    .map(slug => getPostBySlug(slug, fields))
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 }
