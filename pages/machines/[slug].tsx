@@ -1,57 +1,72 @@
 import Layout from "@components/layout"
-import { useRouter } from "next/router"
 import { Capture } from "@components/common/capture"
 import ContentWrapper from "@components/common/content-wrapper"
-import ErrorPage from "next/error"
-import { GetStaticPaths, GetStaticProps } from "next"
-import { getAllPosts, getPostBySlug } from "../../lib/api"
-import { MDXRemote } from "next-mdx-remote"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { POSTS_PATH, postsFilePath } from "../../lib/api"
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
 import dynamic from "next/dynamic"
+import path from "path"
+import fs from "fs"
+import matter from "gray-matter"
+import { FrontMatterData } from "@utils/types"
+import FetchData from "@components/machines/fetch-data"
 
-const MachineBySlug = (): JSX.Element => {
-  const router = useRouter()
+interface MdxData {
+  compiledSource: string
+  scope: FrontMatterData
+}
+interface Props {
+  source: MDXRemoteSerializeResult<Record<string, MdxData>>
+  frontMatter: FrontMatterData
+}
 
-  if (!router.isFallback) return <ErrorPage statusCode={404} />
+const components = {
+  FetchData,
+}
+
+const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element => {
+  const { title } = frontMatter
 
   return (
     <Layout>
       <ContentWrapper>
         <h1>
-          {router.query.slug} with <Capture>x-state</Capture>{" "}
+          {title} with <Capture>x-state</Capture>{" "}
         </h1>
       </ContentWrapper>
+      <MDXRemote {...source} components={components} />
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const fallbackSlug = params?.slug as string
-  const post = getPostBySlug(fallbackSlug, ["title", "slug", "author", "spoiler", "date"])
+  const postFilePath = path.join(POSTS_PATH, `${params?.slug ?? ""}.mdx`)
+  const postSource = fs.readFileSync(postFilePath)
+  const { data: frontMatter, content } = matter(postSource)
 
-  console.log(post.content)
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [],
+    },
+    scope: frontMatter,
+  })
 
   return {
     props: {
-      ...post,
-      content: "",
+      source: mdxSource,
+      frontMatter,
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllPosts(["slug"])
+  const paths = postsFilePath
+    .map(path => path.replace(/\.mdx?$/, ""))
+    .map(slug => ({ params: { slug } }))
 
-  return {
-    paths: posts.map(post => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      }
-    }),
-    fallback: false,
-  }
+  return { paths, fallback: false }
 }
 
 export default MachineBySlug

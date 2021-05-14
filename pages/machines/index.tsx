@@ -39,10 +39,10 @@ const MachinesPage: NextPage<Props> = ({ allPosts }): JSX.Element => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPosts = postsFilePath.map(post => {
-    const source = fs.readFileSync(path.join(POSTS_PATH, post))
+  const allPosts = postsFilePath.map(postPath => {
+    const source = fs.readFileSync(path.join(POSTS_PATH, postPath))
     const { content, data } = matter(source)
-    return { content, data, post }
+    return { content, data, postPath }
   })
 
   return { props: { allPosts } }
