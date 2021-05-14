@@ -130,6 +130,21 @@ const GlobalStyles = (): JSX.Element => {
         h6 {
           font-family: var(--headingFont);
         }
+        h1 {
+          font-size: var(--h1);
+        }
+        h2 {
+          font-size: var(--h2);
+        }
+        h3 {
+          font-size: var(--h3);
+        }
+        h4 {
+          font-size: var(--h4);
+        }
+        h5 {
+          font-size: var(--h5);
+        }
         p {
           font-family: var(--bodyFont);
           margin-bottom: 0.5rem;

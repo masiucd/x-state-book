@@ -25,3 +25,16 @@ export interface Field {
   author: string
   date: string
 }
+
+export interface FrontMatterData {
+  author: string
+  date: string
+  slug: string
+  spoiler: string
+  title: string
+}
+export interface Post {
+  content: string
+  post: string
+  data: FrontMatterData
+}

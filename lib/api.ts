@@ -3,13 +3,8 @@ import { join } from "path"
 import matter from "gray-matter"
 import { Field, FieldType } from "@utils/types"
 
-// const isField = (fields: Field[]) => (field: any): field is Field => fields.includes(field)
-
-// function assert(value: unknown, name: string): asserts value is Field {
-//   if (typeof value !== "string") {
-//     throw new TypeError(`Expected "${name}" to be a string`)
-//   }
-// }
+export const POSTS_PATH = join(process.cwd(), "posts")
+export const postsFilePath = fs.readdirSync(POSTS_PATH).filter(path => /\.mdx?$/.test(path))
 
 export const getPostsDirectory = (): string => join(process.cwd(), "posts")
 
