@@ -5,12 +5,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { POSTS_PATH, postsFilePath } from "../../lib/api"
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
 import { serialize } from "next-mdx-remote/serialize"
-import dynamic from "next/dynamic"
+// import dynamic from "next/dynamic"
 import path from "path"
 import fs from "fs"
 import matter from "gray-matter"
 import { FrontMatterData } from "@utils/types"
 import FetchData from "@components/machines/fetch-data"
+import AccordionWrapper from "@components/accordian"
+import PostLayout from "@components/mdx-components/post-layout"
 
 interface MdxData {
   compiledSource: string
@@ -23,6 +25,7 @@ interface Props {
 
 const components = {
   FetchData,
+  AccordionWrapper,
 }
 
 const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element => {
@@ -35,7 +38,9 @@ const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element =>
           {title} with <Capture>x-state</Capture>{" "}
         </h1>
       </ContentWrapper>
-      <MDXRemote {...source} components={components} />
+      <PostLayout>
+        <MDXRemote {...source} components={components} />
+      </PostLayout>
     </Layout>
   )
 }

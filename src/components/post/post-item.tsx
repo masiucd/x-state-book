@@ -16,7 +16,6 @@ const StyledPost = styled.li`
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
-    /*  */
   }
   .content {
     padding: 0.5em;
