@@ -13,8 +13,9 @@ const Wrapper = styled(motion.div)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
   & [data-animate="true"] {
-    width: 45em;
+    width: 100%;
     margin-bottom: 1em;
   }
   .counter-element {
@@ -65,7 +66,6 @@ const Buttons = styled.div`
 
 const Counter = (): JSX.Element => {
   const [state, send] = useMachine(counterMachine)
-
   const isInactive = state.matches("inactive")
   const isActive = state.matches("active")
 
@@ -104,7 +104,6 @@ const Counter = (): JSX.Element => {
               <Button onClick={() => send("DECREMENT")} isDisabled={state.context.count === 0}>
                 decrease
               </Button>
-
               <Button onClick={() => send("RESET")} isDisabled={state.context.count === 0}>
                 reset
               </Button>

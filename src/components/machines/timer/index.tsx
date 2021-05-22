@@ -7,11 +7,12 @@ import { AnimatePresence, motion } from "framer-motion"
 import timeMachine from "./machine"
 
 const TimerWrapper = styled(motion.section)`
-  min-height: 75vh;
   display: grid;
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
+  margin: 0 auto;
 `
 
 const TimerBody = styled.div`
@@ -95,7 +96,6 @@ const calculateTime = (duration: number): string => {
 
 const Timer = (): JSX.Element => {
   const [state, send] = useMachine(timeMachine)
-
   const { duration, elapsed, interval } = state.context
 
   useEffect(() => {

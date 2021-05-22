@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { FC } from "react"
 
 const StyledPostLayout = styled.section`
-  margin: 0.5em auto;
+  margin: 0.5em auto 2em auto;
   h1,
   h2,
   h3 {
