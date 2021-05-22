@@ -14,7 +14,8 @@ import FetchData from "@components/machines/fetch-data"
 import AccordionWrapper from "@components/accordian"
 import PostLayout from "@components/mdx-components/post-layout"
 import PostWrapper from "@components/mdx-components/post-wrapper"
-
+import { ShowTheCode } from "@components/common/show-the-code"
+import { Block, About } from "@components/mdx-components/elements"
 interface MdxData {
   compiledSource: string
   scope: FrontMatterData
@@ -28,6 +29,9 @@ const components = {
   FetchData,
   AccordionWrapper,
   PostWrapper,
+  ShowTheCode,
+  Block,
+  About,
 }
 
 const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element => {

@@ -8,13 +8,6 @@ const Wrapper = styled.section`
   grid-gap: 1rem;
   max-height: 55vh;
   .about {
-    max-height: 55vh;
-    overflow-y: scroll;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 1px solid ${elements.common};
-    padding-left: 0.5rem;
   }
 `
 
