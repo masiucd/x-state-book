@@ -16,6 +16,7 @@ const StyledHeader = styled.header`
     grid-gap: 1rem;
     grid-template-columns: 1fr 2fr;
   }
+  margin-bottom: 4rem; ;
 `
 
 const TitleWrapper = styled.div`

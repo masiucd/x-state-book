@@ -17,6 +17,10 @@ export const elements = {
   commonText: "var(--common-text)",
 }
 
+export const common = {
+  borderRadiusS: "var(--border-radius)",
+}
+
 export const elevations = {
   shadowXS: "var(--shadowXs)",
   shadow: "var(--shadow)",
