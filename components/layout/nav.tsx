@@ -1,22 +1,22 @@
-import { css } from "@emotion/css"
+import {css} from "@emotion/css"
 import styled from "@emotion/styled"
 import useMediaQuery from "@hooks/media-query"
-import { above, below } from "@styles/media-query"
-import { elements } from "@styles/styled-variables"
-import { AnimatePresence } from "framer-motion"
-import React from "react"
-import { ListData } from "types"
+import {above, below} from "@styles/media-query"
+import {elements} from "@styles/styled-variables"
+import {AnimatePresence} from "framer-motion"
+
+import {ListData} from "../../utils/types"
 import NavList from "./nav-list"
 
 const navDataList: ListData[] = [
-  { name: "about", path: "/about" },
-  { name: "machines", path: "/machines" },
-  { name: "contact", path: "/contact" },
+  {name: "about", path: "/about"},
+  {name: "machines", path: "/machines"},
+  {name: "contact", path: "/contact"},
 ]
 
 const socialMediaList: ListData[] = [
-  { name: "twitter", path: "" },
-  { name: "github", path: "" },
+  {name: "twitter", path: "https://twitter.com/masiu_cd"},
+  {name: "github", path: "https://github.com/masiucd"},
 ]
 
 interface Props {
@@ -52,7 +52,7 @@ const mobileListStyles = css`
   }
 `
 
-const Nav = ({ isOn }: Props): JSX.Element => {
+const Nav = ({isOn}: Props): JSX.Element => {
   const isMatched = useMediaQuery(above.tablet)
   const isMobileMenuMatched = useMediaQuery(below.tablet)
   const shouldRenderMobileList = isMobileMenuMatched && isOn

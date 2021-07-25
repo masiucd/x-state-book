@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/react"
+import {Global, css} from "@emotion/react"
 
 const GlobalStyles = (): JSX.Element => {
   return (
@@ -97,6 +97,7 @@ const GlobalStyles = (): JSX.Element => {
           line-height: 1.65;
           background: var(--bg);
           color: var(--textColor);
+          height: 100%;
         }
         body[data-theme="light"] {
           --bg: var(--lightGrey);

@@ -1,11 +1,13 @@
+import BgImage from "@components/common/bg-image"
+import Title from "@components/common/title"
 import Head from "@components/elements/head"
 import Layout from "@components/layout"
-import Hero from "@components/common/hero"
-import { css } from "@emotion/css"
-import { colorIntentions, common, elements, elevations, sizes } from "@styles/styled-variables"
-import Link from "next/link"
+import {css} from "@emotion/css"
+import styled from "@emotion/styled"
+import {colorIntentions, common, elements, elevations, sizes} from "@styles/styled-variables"
+import {motion} from "framer-motion"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import Link from "next/link"
 
 const titleStyles = css`
   display: flex;
@@ -57,21 +59,29 @@ const linkStyles = css`
   cursor: pointer;
 `
 
+const PageWrapper = styled.div`
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function Home(): JSX.Element {
   return (
     <Layout isFluid>
       <Head title="home" />
-      <Hero>
-        <div className={titleStyles}>
+      <PageWrapper>
+        <Title className={titleStyles}>
           <h1>x-state showcase</h1>
           <Link href="/machines">
-            <motion.div className={linkStyles} role="link" whileHover={{ scale: 1.1, rotate: 2 }}>
+            <motion.div className={linkStyles} role="link" whileHover={{scale: 1.1, rotate: 2}}>
               <a>To Machines</a>
               <Image src="/cpu.svg" width={30} height={30} alt="cpu" />
             </motion.div>
           </Link>
-        </div>
-      </Hero>
+        </Title>
+      </PageWrapper>
+      <BgImage />
     </Layout>
   )
 }
