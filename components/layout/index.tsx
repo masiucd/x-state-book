@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import GlobalStyles from "@styles/global-styles"
-import { sizes } from "@styles/styled-variables"
+import {sizes} from "@styles/styled-variables"
 import React from "react"
 import Header from "./header"
 
@@ -11,9 +11,10 @@ interface LayoutProps {
 const Page = styled.main<LayoutProps>`
   max-width: ${props => (props.isFluid ? "100%" : sizes.maxWidth)};
   margin: 0 auto;
+  min-height: 100vh;
 `
 
-const Layout: React.FC<LayoutProps> = ({ children, isFluid }) => {
+const Layout: React.FC<LayoutProps> = ({children, isFluid}) => {
   return (
     <>
       <GlobalStyles />

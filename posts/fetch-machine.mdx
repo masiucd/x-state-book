@@ -6,8 +6,99 @@ author: "Marcell Ciszek"
 date: "2021-05-13"
 ---
 
-# Fetch data
+### Fetch data
 
-lorem ipsum,
+<PostWrapper>
+
+<About>
+
+<Block>
+  Here we have a fetch machine where we use the `Github` api to get the info about the specific
+  user. We can aonly make a fetch call when we are in the correct state. This make X-state so
+  powerful. We as developers can much easier control when to fetch or nut in a nice and decvalartive
+  way.
+</Block>
+
+<ShowTheCode>
+
+```tsx
+const GITHUB_URL = "https://api.github.com/users/"
+
+const getUser = (username = "masiucd") =>
+  fetch(GITHUB_URL + username)
+    .then(data => data.json())
+    .then(d => d)
+    .catch(err => {
+      console.error(err)
+      return err
+    })
+
+interface Ctx {
+  username: string
+  user: null | GithubUser
+  error: null | Error
+}
+
+const userMachine = createMachine<Ctx>(
+  {
+    id: "user",
+    initial: "idle",
+    context: {
+      username: "masiucd",
+      user: null,
+      error: null,
+    },
+
+    states: {
+      idle: {
+        on: {
+          FETCH: { target: "loading" },
+        },
+      },
+      loading: {
+        invoke: {
+          id: "getUser",
+          src: (ctx: Ctx) => getUser(ctx.username),
+          onDone: {
+            target: "success",
+            actions: assign({ user: (ctx: Ctx, event) => event.data }),
+          },
+          onError: {
+            target: "failure",
+            actions: assign({ error: (ctx: Ctx, event) => event.data }),
+          },
+        },
+      },
+      success: {
+        on: {
+          RESET: {
+            actions: "resetContext",
+            target: "idle",
+          },
+        },
+      },
+      failure: {
+        on: {
+          RETRY: { target: "loading" },
+        },
+      },
+    },
+  },
+  {
+    actions: {
+      resetContext: assign<Ctx>({
+        username: "masiucd",
+        user: null,
+        error: null,
+      }),
+    },
+  }
+```
+
+</ShowTheCode>
+
+</About>
 
 <FetchData />
+
+</PostWrapper>

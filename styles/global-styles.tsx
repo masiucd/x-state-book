@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/react"
+import {Global, css} from "@emotion/react"
 
 const GlobalStyles = (): JSX.Element => {
   return (
@@ -35,7 +35,7 @@ const GlobalStyles = (): JSX.Element => {
           --borderLeftColor: var(--black);
 
           /* elements */
-          --bg: var(--dark);
+          --bg: var(--lightGrey);
           --paragraph: var(--greyish);
           --button: var(--green);
           --button-text: var(--dark);
@@ -61,11 +61,11 @@ const GlobalStyles = (): JSX.Element => {
           /* Type */
           --headingFont: "Karla", sans-serif;
           --bodyFont: "Spectral", serif;
-          --h1: 3.052em;
-          --h2: 2.441em;
-          --h3: 1.953em;
-          --h4: 1.563em;
-          --h5: 1.25em;
+          --h1: 4.052em;
+          --h2: 3.441em;
+          --h3: 2.953em;
+          --h4: 2.563em;
+          --h5: 1.55em;
           --smallText: 0.8em;
           /* positioning */
           --containerPadding: 2.5%;
@@ -95,16 +95,19 @@ const GlobalStyles = (): JSX.Element => {
           font-family: var(--bodyFont);
           font-weight: 400;
           line-height: 1.65;
-          background: var(--background);
+          background: var(--bg);
           color: var(--textColor);
+          height: 100%;
         }
         body[data-theme="light"] {
+          --bg: var(--lightGrey);
           --textColor: var(--black);
           --background: var(--white);
           --lineColor: var(--green);
           --strokeColor: var(--red);
         }
         body[data-theme="dark"] {
+          --bg: var(--dark);
           --textColor: var(--white);
           --background: var(--dark);
           --lineColor: var(--green);

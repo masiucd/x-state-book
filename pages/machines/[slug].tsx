@@ -1,17 +1,21 @@
 import Layout from "@components/layout"
-import { Capture } from "@components/common/capture"
+import {Capture} from "@components/common/capture"
 import ContentWrapper from "@components/common/content-wrapper"
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { POSTS_PATH, postsFilePath } from "../../lib/api"
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote"
-import { serialize } from "next-mdx-remote/serialize"
-import dynamic from "next/dynamic"
+import {GetStaticPaths, GetStaticProps, NextPage} from "next"
+import {POSTS_PATH, postsFilePath} from "../../lib/api"
+import {MDXRemote, MDXRemoteSerializeResult} from "next-mdx-remote"
+import {serialize} from "next-mdx-remote/serialize"
+// import dynamic from "next/dynamic"
 import path from "path"
 import fs from "fs"
 import matter from "gray-matter"
-import { FrontMatterData } from "@utils/types"
+import {FrontMatterData} from "@utils/types"
 import FetchData from "@components/machines/fetch-data"
-
+import AccordionWrapper from "@components/accordian"
+import PostLayout from "@components/mdx-components/post-layout"
+import PostWrapper from "@components/mdx-components/post-wrapper"
+import {ShowTheCode} from "@components/common/show-the-code"
+import {Block, About} from "@components/mdx-components/elements"
 interface MdxData {
   compiledSource: string
   scope: FrontMatterData
@@ -23,10 +27,15 @@ interface Props {
 
 const components = {
   FetchData,
+  AccordionWrapper,
+  PostWrapper,
+  ShowTheCode,
+  Block,
+  About,
 }
 
-const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element => {
-  const { title } = frontMatter
+const MachineBySlug: NextPage<Props> = ({source, frontMatter}): JSX.Element => {
+  const {title} = frontMatter
 
   return (
     <Layout>
@@ -35,15 +44,17 @@ const MachineBySlug: NextPage<Props> = ({ source, frontMatter }): JSX.Element =>
           {title} with <Capture>x-state</Capture>{" "}
         </h1>
       </ContentWrapper>
-      <MDXRemote {...source} components={components} />
+      <PostLayout>
+        <MDXRemote {...source} components={components} />
+      </PostLayout>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   const postFilePath = path.join(POSTS_PATH, `${params?.slug ?? ""}.mdx`)
   const postSource = fs.readFileSync(postFilePath)
-  const { data: frontMatter, content } = matter(postSource)
+  const {data: frontMatter, content} = matter(postSource)
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
@@ -64,9 +75,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = postsFilePath
     .map(path => path.replace(/\.mdx?$/, ""))
-    .map(slug => ({ params: { slug } }))
+    .map(slug => ({params: {slug}}))
 
-  return { paths, fallback: false }
+  return {paths, fallback: false}
 }
 
 export default MachineBySlug
