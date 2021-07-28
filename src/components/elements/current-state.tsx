@@ -1,6 +1,6 @@
-import { css, cx } from "@emotion/css"
-import { elements, elevations } from "@styles/styled-variables"
-import { StateValue } from "xstate/lib/types"
+import {css, cx} from "@emotion/css"
+import {elements, elevations} from "@styles/styled-variables"
+import {StateValue} from "xstate/lib/types"
 
 interface CurrentStateProps {
   stateValue: StateValue
@@ -19,7 +19,7 @@ const styles = css`
   }
 `
 
-const CurrentState = ({ stateValue, className }: CurrentStateProps): JSX.Element => {
+const CurrentState = ({stateValue, className}: CurrentStateProps): JSX.Element => {
   return (
     <div className={cx(styles, className)}>
       <h3>
