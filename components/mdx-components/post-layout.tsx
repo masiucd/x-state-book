@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { FC } from "react"
+import {FC} from "react"
 
 const StyledPostLayout = styled.section`
   margin: 0.5em auto 2em auto;
@@ -11,7 +11,7 @@ const StyledPostLayout = styled.section`
   }
 `
 
-const PostLayout: FC = ({ children }): JSX.Element => {
+const PostLayout: FC = ({children}): JSX.Element => {
   return <StyledPostLayout>{children}</StyledPostLayout>
 }
 

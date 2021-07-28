@@ -1,4 +1,4 @@
-import { css, cx } from "@emotion/css"
+import {css, cx} from "@emotion/css"
 import React from "react"
 
 interface ContentWrapperProps {
@@ -10,7 +10,7 @@ const styles = css`
   text-align: center;
 `
 
-const ContentWrapper: React.FC<ContentWrapperProps> = ({ className, children }) => {
+const ContentWrapper: React.FC<ContentWrapperProps> = ({className, children}) => {
   return <section className={cx(styles, className)}>{children}</section>
 }
 export default ContentWrapper

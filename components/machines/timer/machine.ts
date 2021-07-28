@@ -1,4 +1,4 @@
-import { createMachine, assign } from "xstate"
+import {assign, createMachine} from "xstate"
 interface TimerContext {
   duration: number
   elapsed: number
@@ -6,12 +6,12 @@ interface TimerContext {
 }
 
 type TimerEvents =
-  | { type: "TOGGLE" }
-  | { type: "TICK" }
-  | { type: "ADD_MINUTE" }
-  | { type: "ADD_HOUR" }
-  | { type: "ADD_SECONDS" }
-  | { type: "RESET" }
+  | {type: "TOGGLE"}
+  | {type: "TICK"}
+  | {type: "ADD_MINUTE"}
+  | {type: "ADD_HOUR"}
+  | {type: "ADD_SECONDS"}
+  | {type: "RESET"}
 
 const timerExpired = (ctx: TimerContext) => ctx.elapsed >= ctx.duration
 

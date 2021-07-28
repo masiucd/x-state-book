@@ -1,9 +1,10 @@
-import React, { useEffect } from "react"
-import { useMachine } from "@xstate/react"
 import styled from "@emotion/styled"
-import { colorIntentions, elevations } from "@styles/styled-variables"
-import { resetButtonStyles } from "@styles/common"
-import { AnimatePresence, motion } from "framer-motion"
+import {resetButtonStyles} from "@styles/common"
+import {colorIntentions, elevations} from "@styles/styled-variables"
+import {useMachine} from "@xstate/react"
+import {AnimatePresence, motion} from "framer-motion"
+import React, {useEffect} from "react"
+
 import timeMachine from "./machine"
 
 const TimerWrapper = styled(motion.section)`
@@ -96,7 +97,7 @@ const calculateTime = (duration: number): string => {
 
 const Timer = (): JSX.Element => {
   const [state, send] = useMachine(timeMachine)
-  const { duration, elapsed, interval } = state.context
+  const {duration, elapsed, interval} = state.context
 
   useEffect(() => {
     if (state.value === "running") {
@@ -111,9 +112,9 @@ const Timer = (): JSX.Element => {
 
   return (
     <TimerWrapper
-      initial={{ opacity: 0, y: "-100%" }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: "-100%" }}
+      initial={{opacity: 0, y: "-100%"}}
+      animate={{opacity: 1, y: 0}}
+      exit={{opacity: 0, y: "-100%"}}
     >
       <TimerBody>
         <H3>
@@ -130,10 +131,10 @@ const Timer = (): JSX.Element => {
               animate={{
                 scale: state.value === "paused" ? 1.4 : 1,
               }}
-              transition={{ duration: 0.5, flip: state.value === "paused" ? Infinity : 0 }}
+              transition={{duration: 0.5, flip: state.value === "paused" ? Infinity : 0}}
             >
               <HourMinSecWrapper
-                dangerouslySetInnerHTML={{ __html: calculateTime(duration - elapsed) }}
+                dangerouslySetInnerHTML={{__html: calculateTime(duration - elapsed)}}
               />
             </motion.span>
           </motion.button>
@@ -148,7 +149,7 @@ const Timer = (): JSX.Element => {
         )}
 
         {state.value === "paused" && (
-          <ResetTimer type="button" onClick={() => send("RESET")} whileHover={{ scale: 1.1 }}>
+          <ResetTimer type="button" onClick={() => send("RESET")} whileHover={{scale: 1.1}}>
             reset timer
           </ResetTimer>
         )}
@@ -157,10 +158,10 @@ const Timer = (): JSX.Element => {
           {state.value === "running" && (
             <ConfigButtons
               layout
-              initial={{ opacity: 0, y: "100%" }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: "100%" }}
-              transition={{ duration: 0.4, delay: 0.1 }}
+              initial={{opacity: 0, y: "100%"}}
+              animate={{opacity: 1, y: 0}}
+              exit={{opacity: 0, y: "100%"}}
+              transition={{duration: 0.4, delay: 0.1}}
             >
               <button type="button" onClick={() => send("ADD_HOUR")}>
                 + 1 hour
