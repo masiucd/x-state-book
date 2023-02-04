@@ -15,14 +15,14 @@ const serializeState = state => {
 
 const deserializeState = serializedState => {
   if (!serializedState) return toggleMachine.initialState
-
   const state = JSON.parse(serializedState)
-
-  const {value, context, actions, activities, events} = state
-
+  console.log("state", state)
+  const {value, context, actions, activities, events} = state.rest
+  console.log("value", value)
   if (!toggleMachine.states[value]) return toggleMachine.initialState
 
   const meta = toggleMachine.states[value].meta
+  console.log("meta", meta)
   return {
     value,
     context,
@@ -30,6 +30,7 @@ const deserializeState = serializedState => {
     activities,
     events,
     meta,
+    ...state.rest,
   }
 }
 
@@ -48,6 +49,10 @@ const saveState = state => {
 
 const retrieveState = () => {
   const serializedState = localStorage.getItem("toggle")
+  console.log(
+    "deserializeState(serializedState)",
+    deserializeState(serializedState)
+  )
   return deserializeState(serializedState) || toggleMachine.initialState
 }
 
@@ -55,7 +60,7 @@ export default function ToggleApp() {
   const [state, send, service] = useMachine(toggleMachine, {
     state: retrieveState(),
   })
-  console.log("state", state)
+  // console.log("state", state)
   const {fn, buttonText} = state.meta[`toggle.${state.value}`]
   // console.log("fn,buttonText", fn, buttonText)
   // console.log("state", state)
@@ -64,7 +69,6 @@ export default function ToggleApp() {
 
   useEffect(() => {
     const subscription = service.subscribe(state => {
-      console.log("state", state)
       saveState(state)
     })
     return () => {
