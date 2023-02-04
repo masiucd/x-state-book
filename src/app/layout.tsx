@@ -1,16 +1,24 @@
-import './globals.css'
+import "@/styles/globals.css"
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+import {Inter as FontSans} from "@next/font/google"
+import {ReactNode} from "react"
+
+import {cn} from "@/lib/utils/styles"
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
+export default function RootLayout({children}: {children: ReactNode}) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html
+      lang="en"
+      className={cn(
+        "bg-white font-sans text-slate-900 antialiased",
+        fontSans.variable
+      )}
+    >
       <head />
       <body>{children}</body>
     </html>
