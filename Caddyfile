@@ -1,0 +1,3 @@
+xstate-book.localhost {
+  reverse_proxy localhost:3000
+}
