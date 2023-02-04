@@ -1,72 +1,47 @@
 "use client"
+
 import {useMachine} from "@xstate/react"
 import {useEffect} from "react"
 
-import toggleMachine from "@/machines/toggle/machine"
+import toggleMachine, {StateType} from "@/machines/toggle/machine"
 
-const serializeState = state => {
+const serializeState = (state: StateType) => {
   // const {value, context, actions, activities, events} = state
   // eslint-disable-next-line no-unused-vars
   const {meta, ...rest} = state
   return JSON.stringify({
-    rest,
+    ...rest,
   })
 }
 
-const deserializeState = serializedState => {
+const deserializeState = (serializedState: string) => {
   if (!serializedState) return toggleMachine.initialState
   const state = JSON.parse(serializedState)
-  console.log("state", state)
-  const {value, context, actions, activities, events} = state.rest
-  console.log("value", value)
+  const {value} = state
   if (!toggleMachine.states[value]) return toggleMachine.initialState
-
   const meta = toggleMachine.states[value].meta
-  console.log("meta", meta)
   return {
-    value,
-    context,
-    actions,
-    activities,
-    events,
+    ...state,
     meta,
-    ...state.rest,
   }
 }
 
 // save the state to local storage
-const saveState = state => {
+const saveState = (state: StateType) => {
   localStorage.setItem("toggle", serializeState(state))
 }
 
-// const retrieveState = () => {
-//   const serializedState = localStorage.getItem("toggle")
-//   if (serializedState) {
-//     return deserializeState(serializedState)
-//   }
-//   return toggleMachine.initialState
-// }
-
 const retrieveState = () => {
   const serializedState = localStorage.getItem("toggle")
-  console.log(
-    "deserializeState(serializedState)",
-    deserializeState(serializedState)
-  )
-  return deserializeState(serializedState) || toggleMachine.initialState
+  if (!serializedState) return toggleMachine.initialState
+  return deserializeState(serializedState)
 }
 
 export default function ToggleApp() {
   const [state, send, service] = useMachine(toggleMachine, {
     state: retrieveState(),
   })
-  // console.log("state", state)
   const {fn, buttonText} = state.meta[`toggle.${state.value}`]
-  // console.log("fn,buttonText", fn, buttonText)
-  // console.log("state", state)
-  // console.log("state", state.toJSON())
-  // console.log(JSON.parse(JSON.stringify(state)))
-
   useEffect(() => {
     const subscription = service.subscribe(state => {
       saveState(state)

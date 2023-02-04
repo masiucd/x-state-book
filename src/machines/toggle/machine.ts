@@ -42,4 +42,5 @@ const toggleMachine = createMachine({
   },
 })
 
+export type StateType = (typeof toggleMachine)["initialState"]
 export default toggleMachine
