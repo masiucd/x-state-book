@@ -3,6 +3,7 @@
 import {useMachine} from "@xstate/react"
 import {useEffect} from "react"
 
+import Icons from "@/components/icons/icons"
 import toggleMachine, {StateType} from "@/machines/toggle/machine"
 
 const serializeState = (state: StateType) => {
@@ -61,6 +62,7 @@ export default function ToggleApp() {
           fn()
         }}
       >
+        <Icons.heart isOn={state.matches("active")} />
         {state.matches("inactive") ? "Off" : "On"}
       </button>
     </div>

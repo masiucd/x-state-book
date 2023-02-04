@@ -10,14 +10,15 @@ const fontSans = FontSans({
   variable: "--font-inter",
 })
 
-export default function RootLayout({children}: {children: ReactNode}) {
+interface Props {
+  children: ReactNode
+}
+
+export default function RootLayout({children}: Props) {
   return (
     <html
       lang="en"
-      className={cn(
-        "bg-white font-sans text-slate-900 antialiased",
-        fontSans.variable
-      )}
+      className={cn("bg-white font-sans text-slate-900", fontSans.variable)}
     >
       <head />
       <body>{children}</body>
