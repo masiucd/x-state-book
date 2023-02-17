@@ -19,23 +19,11 @@ const toggleMachine = createMachine({
           target: "active",
         },
       },
-      meta: {
-        buttonText: "Inactive",
-        fn: () => {
-          console.log("I am active going to be inactive")
-        },
-      },
     },
     active: {
       on: {
         TOGGLE: {
           target: "inactive",
-        },
-      },
-      meta: {
-        buttonText: "Active",
-        fn: () => {
-          console.log("I am inactive going to be active")
         },
       },
     },

@@ -1,19 +1,15 @@
 "use client"
-
 import {useMachine} from "@xstate/react"
 import {useEffect} from "react"
 
 import Icons from "@/components/icons/icons"
+import {cn} from "@/lib/utils/styles"
 import toggleMachine, {StateType} from "@/machines/toggle/machine"
 
-const serializeState = (state: StateType) => {
-  // const {value, context, actions, activities, events} = state
-  // eslint-disable-next-line no-unused-vars
-  const {meta, ...rest} = state
-  return JSON.stringify({
-    ...rest,
+const serializeState = (state: StateType) =>
+  JSON.stringify({
+    ...state,
   })
-}
 
 const deserializeState = (serializedState: string) => {
   if (!serializedState) return toggleMachine.initialState
@@ -42,9 +38,9 @@ export default function ToggleApp() {
   const [state, send, service] = useMachine(toggleMachine, {
     state: retrieveState(),
   })
-  const {fn, buttonText} = state.meta[`toggle.${state.value}`]
+
   useEffect(() => {
-    const subscription = service.subscribe(state => {
+    const subscription = service.subscribe((state) => {
       saveState(state)
     })
     return () => {
@@ -54,16 +50,22 @@ export default function ToggleApp() {
 
   return (
     <div>
-      <h3>I am {buttonText} </h3>
+      <p
+        className={cn(
+          "text-slate-700",
+          state.matches("inactive") ? "opacity-50" : "opacity-100"
+        )}
+      >
+        Click the heart to make a change
+      </p>
+      <h3> I am {state.matches("inactive") ? "inactive" : "active"} </h3>
       <button
         type="button"
         onClick={() => {
           send({type: "TOGGLE"})
-          fn()
         }}
       >
         <Icons.heart isOn={state.matches("active")} />
-        {state.matches("inactive") ? "Off" : "On"}
       </button>
     </div>
   )
