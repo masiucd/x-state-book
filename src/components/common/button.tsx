@@ -18,7 +18,7 @@ export interface Props {
 function apperenceStyles(apperence: Props["apperence"]) {
   switch (apperence) {
     case "primary":
-      return "bg-gradient-to-r from-cyan-500 to-blue-500"
+      return "bg-gradient-to-r from-slate-300 to-slate-200"
     case "secondary":
       return "bg-gray-200 text-gray-700"
     case "tertiary":

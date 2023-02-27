@@ -1,7 +1,6 @@
 import * as Icon from "react-feather"
 
 import Button from "@/components/common/button"
-import Icons from "@/components/icons/icons"
 
 const cards = [
   {
@@ -45,16 +44,13 @@ const cards = [
 export default function Home() {
   return (
     <div className="flex-1 items-center justify-center py-20">
-      <div className="mb-10 grid grid-cols-1 gap-3 lg:grid-cols-6">
+      <div className="mb-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
         <div className="col-span-3 mb-5 lg:mb-0 ">
-          <h1 className="block bg-gradient-to-b from-slate-900 to-blue-400 bg-clip-text text-transparent drop-shadow-md">
-            XState
+          <h1 className="block bg-gradient-to-b from-slate-900 to-slate-400 bg-clip-text text-transparent drop-shadow-md">
+            X-State
           </h1>
-          <h2 className="text-4xl capitalize">
-            state machines and statecharts!
-          </h2>
-          <p>Simplify complex logic and state management with statecharts.</p>
-          <p>XState is a JavaScript library for modeling and managing state</p>
+          <h2 className="text-4xl">state machines and state charts!</h2>
+          <p>Simplify complex logic and state management with state-charts.</p>
           <div className="flex gap-5">
             <Button apperence="primary" href="/machines">
               Get Started
@@ -65,7 +61,7 @@ export default function Home() {
         </div>
         <div>
           {/* TODO own logo */}
-          <Icons.xstate />
+          {/* <Icons.xstate /> */}
         </div>
       </div>
 
