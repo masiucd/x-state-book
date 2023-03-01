@@ -3,12 +3,37 @@ import {ReactNode} from "react"
 
 import MainHeader from "@/components/layout/main_header"
 import {PageWrapper} from "@/components/page_wrapper"
+import {getMachineDirs} from "@/lib/utils/io"
 
 interface Props {
   children: ReactNode
 }
 
-export default function XstateLayout({children}: Props) {
+function buildMachinesList(machines: string[]) {
+  const result = []
+  for (const machine of machines) {
+    switch (machine) {
+      case "register":
+        result.push({machine, path: machine})
+        break
+      case "timer":
+        result.push({machine, path: machine})
+        break
+      case "toggle":
+        result.push({machine, path: machine})
+        break
+
+      default:
+        break
+    }
+  }
+
+  return result
+}
+
+export default async function XstateLayout({children}: Props) {
+  const machines = buildMachinesList(await getMachineDirs())
+
   return (
     <>
       <MainHeader />
@@ -17,18 +42,14 @@ export default function XstateLayout({children}: Props) {
           <h4>Machines</h4>
           <nav>
             <ul>
-              <li>
-                <Link href="/machines/toggle">toggle</Link>
-              </li>
-              <li>
-                <Link href="/machines/signup">sign up wizzard</Link>
-              </li>
-              <li>
-                <Link href="/machines/timer">timer</Link>
-              </li>
-              <li>
-                <Link href="/machines/guess-game">gussing game</Link>
-              </li>
+              {machines.map((machine) => (
+                <li key={machine.machine}>
+                  {" "}
+                  <Link href={`/machines/${machine.path}`}>
+                    {machine.machine}
+                  </Link>{" "}
+                </li>
+              ))}
             </ul>
           </nav>
         </aside>
