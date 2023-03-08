@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {ReactNode} from "react"
 
+import MainFooter from "@/components/layout/main_footer"
 import MainHeader from "@/components/layout/main_header"
 import {PageWrapper} from "@/components/page_wrapper"
 import {getMachineDirs} from "@/lib/utils/io"
@@ -57,9 +58,7 @@ export default async function XstateLayout({children}: Props) {
           {children}
         </PageWrapper>
       </div>
-      <footer className="min-h-[5rem] border border-red-500">
-        <p>footer</p>
-      </footer>
+      <MainFooter />
     </>
   )
 }
