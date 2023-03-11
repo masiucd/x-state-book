@@ -23,7 +23,6 @@ function buildMachinesList(machines: string[]) {
       case "toggle":
         result.push({machine, path: machine})
         break
-
       default:
         break
     }
@@ -43,7 +42,7 @@ export default async function XstateLayout({children}: Props) {
           <h4>Machines</h4>
           <nav>
             <ul>
-              {machines.map((machine) => (
+              {machines.map(machine => (
                 <li key={machine.machine}>
                   {" "}
                   <Link href={`/machines/${machine.path}`}>
