@@ -5,14 +5,18 @@ import {nord} from "react-syntax-highlighter/dist/esm/styles/prism"
 interface Props {
   code: string
   language?: string
+  on: boolean
 }
 
-function Component({code, language = "typescript"}: Props) {
-  return (
-    <SyntaxHighlighter language={language} style={nord}>
-      {code}
-    </SyntaxHighlighter>
-  )
+function Highlighter({code, language = "typescript", on}: Props) {
+  if (on) {
+    return (
+      <SyntaxHighlighter language={language} style={nord}>
+        {code}
+      </SyntaxHighlighter>
+    )
+  }
+  return null
 }
 
-export default Component
+export default Highlighter

@@ -41,7 +41,7 @@ export default async function XstateLayout({children}: Props) {
         <aside className="col-span-2 border-r border-slate-900">
           <h4>Machines</h4>
           <nav>
-            <ul>
+            <ul className="">
               {machines.map(machine => (
                 <li key={machine.machine}>
                   {" "}
