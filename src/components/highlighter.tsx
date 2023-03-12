@@ -12,10 +12,6 @@ interface Props {
   className?: string
 }
 
-const SyntaxHighlighterWrapper = motion(SyntaxHighlighter, {
-  forwardMotionProps: true,
-})
-
 const variants: Variants = {
   hidden: {
     opacity: 0,
@@ -52,9 +48,9 @@ function Highlighter({code, language = "typescript", on, className}: Props) {
           exit="hidden"
           transition={{duration: 0.3}}
         >
-          <SyntaxHighlighterWrapper language={language} style={nord}>
+          <SyntaxHighlighter language={language} style={nord}>
             {code}
-          </SyntaxHighlighterWrapper>
+          </SyntaxHighlighter>
         </motion.div>
       )}
     </AnimatePresence>

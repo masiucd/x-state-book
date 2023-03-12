@@ -4,14 +4,19 @@ import Title from "@/components/common/title"
 
 export default function AboutPage() {
   return (
-    <div className="flex-1 border">
+    <div className="flex flex-1 flex-col justify-center">
       <Title>
         <h1>About</h1>
         <p>Coming soon!</p>
-        <Link className="border-b-2 border-slate-900" href="/">
+      </Title>
+      <div className="flex gap-3 px-2">
+        <Link className="text-blue-500 hover:opacity-40" href="/">
           Home
         </Link>
-      </Title>
+        <Link className="text-blue-500 hover:opacity-40" href="/machines">
+          Machines
+        </Link>
+      </div>
     </div>
   )
 }

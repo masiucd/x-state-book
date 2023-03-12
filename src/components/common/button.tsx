@@ -56,7 +56,7 @@ function Button({
       onClick={onClick}
       type={type ? type : "button"}
       className={cn(
-        "px-4 py-2 rounded-md font-bold shadow hover:opacity-60 transition-opacity duration-200 disabled:opacity-40 disabled:cursor-not-allowed",
+        "px-4 py-2 rounded-md font-bold shadow hover:opacity-60 transition-opacity duration-200 disabled:opacity-40 disabled:cursor-not-allowed active:translate-y-1",
         apperenceStyles(apperence),
         className
       )}

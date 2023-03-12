@@ -14,12 +14,10 @@ interface Props {
 function buildMachinesList(machines: string[]) {
   const result = []
   for (const machine of machines) {
+    console.log("machine", machine)
     switch (machine) {
-      case "register":
-        result.push({machine, path: machine})
-        break
-      case "timer":
-        result.push({machine, path: machine})
+      case "multi_step_form":
+        result.push({machine: "multi step form", path: machine})
         break
       case "toggle":
         result.push({machine, path: machine})
@@ -34,12 +32,13 @@ function buildMachinesList(machines: string[]) {
 
 export default async function XstateLayout({children}: Props) {
   const machines = buildMachinesList(await getMachineDirs())
+
   return (
     <>
       <MainHeader />
       <div className="grid flex-1 grid-cols-12 pt-2">
-        <aside className="col-span-2 border-r border-slate-900 px-2">
-          <strong className="text-sm md:text-2xl">Machines</strong>
+        <aside className="col-span-1 flex flex-col  border-r-2 border-slate-700/40 px-2">
+          <strong className="text-sm md:text-xl">Machines</strong>
           <nav className="mt-10 mb-5">
             <ul className="flex flex-col gap-3">
               {machines.map(machine => (

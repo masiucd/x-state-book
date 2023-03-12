@@ -1,6 +1,6 @@
 import {createMachine} from "xstate"
 
-export const registerMachine = createMachine({
+const multiStepForm = createMachine({
   id: "register",
   initial: "selectOption",
   context: {
@@ -21,3 +21,5 @@ export const registerMachine = createMachine({
     },
   },
 })
+
+export default multiStepForm
