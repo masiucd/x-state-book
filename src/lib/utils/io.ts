@@ -1,11 +1,11 @@
 import fs from "node:fs/promises"
 import {join} from "node:path"
 
-export const absoluteAppPath = process.cwd()
+export const ABSOLUTE_APP_PATH = process.cwd()
 
 export async function getMachineDirs() {
   const directories: string[] = []
-  const path = join(absoluteAppPath, "src", "app", "(xstate)", "machines")
+  const path = join(ABSOLUTE_APP_PATH, "src", "app", "(xstate)", "machines")
   try {
     const files = await fs.readdir(path)
     for (const file of files) {

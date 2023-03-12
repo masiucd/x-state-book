@@ -9,7 +9,7 @@ export default function Toggle() {
   const [state, send] = useMachine(toggleMachine)
   const active = state.matches("active")
   return (
-    <div className="flex-1">
+    <div>
       <p>This is a toggle machine</p>
       <p>Click the button to toggle the state.</p>
       <button
@@ -30,7 +30,7 @@ export default function Toggle() {
               <span className="inline-block">
                 {state.value.toString().toUpperCase()}
               </span>{" "}
-              <Icon.Heart className="fill-red-500" />{" "}
+              <Icon.Heart className="fill-red-500" />
             </>
           )}
         </span>
