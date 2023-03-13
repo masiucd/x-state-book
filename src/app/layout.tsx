@@ -16,15 +16,15 @@ export const metadata: Metadata = {
     default: "X-state book",
     template: "%s | X-state book",
   },
-  description: "State machines and statecharts for the modern web.",
+  description: "State machines and state charts for the modern web.",
   openGraph: {
     title: "X-state book",
-    description: "State machines and statecharts for the modern web.",
+    description: "State machines and state charts for the modern web.",
     url: "https://x-state-book.vercel.app/",
     siteName: "X-state book",
     images: [
       {
-        url: "https://x-state-book.vercel.app/og.jpg",
+        url: "https://x-state-book.vercel.app/og.jpeg",
         width: 1920,
         height: 1080,
       },
@@ -32,23 +32,12 @@ export const metadata: Metadata = {
     locale: "en-US",
     type: "website",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   twitter: {
     title: "X-state book",
     card: "summary_large_image",
   },
   icons: {
-    shortcut: "/favicons/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 }
 
@@ -63,7 +52,7 @@ export default function RootLayout({children}: Props) {
       className={cn("bg-white text-slate-900 font-sans", fontSans.variable)}
     >
       <head />
-      <body>{children}</body>
+      <body className="flex min-h-screen flex-col">{children}</body>
     </html>
   )
 }

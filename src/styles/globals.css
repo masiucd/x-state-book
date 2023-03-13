@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply min-h-screen border border-green-700 flex flex-col bg-white dark:bg-slate-900  dark:text-white;
-}
-
 h1 {
   @apply text-6xl mb-1;
 }
