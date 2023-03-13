@@ -1,8 +1,8 @@
-import {createMachine} from "xstate"
+import {assign, createMachine} from "xstate"
 
 export const MACHINE_ID = "multiStepForm"
 
-type Category = "drama" | "comedy" | "action" | "horror" | "empty"
+export type Category = "drama" | "comedy" | "action" | "horror" | "empty"
 export const CATEGORIES: readonly Category[] = Object.freeze([
   "drama",
   "comedy",
@@ -10,46 +10,75 @@ export const CATEGORIES: readonly Category[] = Object.freeze([
   "horror",
 ])
 
-type Event = {
-  type: "NEXT"
-}
+export type Event =
+  | {
+      type: "NEXT"
+    }
+  | {type: "SELECT_CATEGORY"; category: Category}
 
 export interface Meta {
   title: string
 }
 
-interface Context {
+export interface Context {
   movieName: string
   category: Category
 }
 
-const multiStepForm = createMachine({
-  schema: {
-    context: {} as Context,
-    events: {} as Event,
-  },
-  tsTypes: {} as import("./machine.typegen").Typegen0,
-  id: MACHINE_ID,
-  initial: "selectCategory",
-  context: {
-    movieName: "",
-    category: "empty",
-  },
-  states: {
-    selectCategory: {
-      on: {
-        NEXT: {
-          target: "movieInfo",
+const multiStepForm = createMachine(
+  {
+    schema: {
+      context: {} as Context,
+      events: {} as Event,
+    },
+    tsTypes: {} as import("./machine.typegen").Typegen0,
+    id: MACHINE_ID,
+    initial: "selectCategory",
+    context: {
+      movieName: "",
+      category: "empty",
+    },
+    states: {
+      selectCategory: {
+        on: {
+          NEXT: {
+            target: "movieInfo",
+          },
+          SELECT_CATEGORY: {
+            actions: "selectCategory",
+          },
+        },
+        meta: {
+          title: "Select category",
         },
       },
-      meta: {
-        title: "Select Option",
+      movieInfo: {
+        on: {
+          NEXT: {
+            target: "userInformation",
+          },
+        },
+        meta: {
+          title: "Movie info",
+        },
+      },
+      userInformation: {
+        on: {},
+        meta: {
+          title: "User information",
+        },
       },
     },
-    movieInfo: {
-      //
-    },
   },
-})
+  {
+    actions: {
+      selectCategory: assign((ctx, event) => {
+        return {
+          category: event.category,
+        }
+      }),
+    },
+  }
+)
 
 export default multiStepForm

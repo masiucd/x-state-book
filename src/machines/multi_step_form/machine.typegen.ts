@@ -12,10 +12,12 @@ export interface Typegen0 {
     guards: never
     services: never
   }
-  eventsCausingActions: {}
+  eventsCausingActions: {
+    selectCategory: "SELECT_CATEGORY"
+  }
   eventsCausingDelays: {}
   eventsCausingGuards: {}
   eventsCausingServices: {}
-  matchesStates: "movieInfo" | "selectCategory"
+  matchesStates: "movieInfo" | "selectCategory" | "userInformation"
   tags: never
 }
