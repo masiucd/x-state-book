@@ -58,7 +58,10 @@ interface Props {
 
 export default function RootLayout({children}: Props) {
   return (
-    <html lang="en" className={cn("font-sans ", fontSans.variable)}>
+    <html
+      lang="en"
+      className={cn("bg-white text-slate-900 font-sans", fontSans.variable)}
+    >
       <head />
       <body>{children}</body>
     </html>
