@@ -4,9 +4,9 @@ import {join} from "node:path"
 import CodeHighlighter from "@/components/common/code_highlighter"
 import Toggle from "@/components/machines/toggle/app"
 import {ABSOLUTE_APP_PATH} from "@/lib/utils/io"
-import {MachineType} from "@/lib/utils/types"
+import {type MachineType} from "@/lib/utils/types"
 
-export async function getMachineContent(machine: MachineType) {
+async function getMachineContent(machine: MachineType) {
   try {
     const path = join(
       ABSOLUTE_APP_PATH,

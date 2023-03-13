@@ -14,6 +14,5 @@ export async function getMachineDirs() {
   } catch (err) {
     console.error(err)
   }
-
   return directories
 }

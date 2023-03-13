@@ -1,4 +1,3 @@
-import Link from "next/link"
 import {ReactNode} from "react"
 
 import NavLink from "@/components/common/nav_link"
@@ -14,7 +13,6 @@ interface Props {
 function buildMachinesList(machines: string[]) {
   const result = []
   for (const machine of machines) {
-    console.log("machine", machine)
     switch (machine) {
       case "multi_step_form":
         result.push({machine: "multi step form", path: machine})
