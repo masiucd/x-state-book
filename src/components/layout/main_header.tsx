@@ -1,12 +1,14 @@
 import Link from "next/link"
+import {ReactNode} from "react"
 
 import {cn} from "@/lib/utils/styles"
 
 interface Props {
   className?: string
+  children?: ReactNode
 }
 
-export default function MainHeader({className}: Props) {
+export default function MainHeader({className, children}: Props) {
   return (
     <header
       className={cn(
@@ -21,6 +23,7 @@ export default function MainHeader({className}: Props) {
           </Link>
         </div>
       </div>
+      {children && children}
     </header>
   )
 }
