@@ -14,6 +14,7 @@ export type Event =
   | {
       type: "NEXT"
     }
+  | {type: "PREVIOUS"}
   | {type: "SELECT_CATEGORY"; category: Category}
 
 export interface Meta {
@@ -27,6 +28,7 @@ export interface Context {
 
 const multiStepForm = createMachine(
   {
+    predictableActionArguments: true,
     schema: {
       context: {} as Context,
       events: {} as Event,
@@ -54,6 +56,9 @@ const multiStepForm = createMachine(
       },
       movieInfo: {
         on: {
+          PREVIOUS: {
+            target: "selectCategory",
+          },
           NEXT: {
             target: "userInformation",
           },
@@ -63,7 +68,11 @@ const multiStepForm = createMachine(
         },
       },
       userInformation: {
-        on: {},
+        on: {
+          PREVIOUS: {
+            target: "movieInfo",
+          },
+        },
         meta: {
           title: "User information",
         },

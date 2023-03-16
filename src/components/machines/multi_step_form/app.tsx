@@ -40,19 +40,22 @@ export default function MultiStepFormApp() {
 
       <div className="flex justify-end px-5 py-2">
         <div className="flex gap-3">
-          {!state.matches("selectCategory") && <button>Previous</button>}
-          <button
+          {!state.matches("selectCategory") && (
+            <FooterButton
+              enabled={true}
+              onClick={() => {
+                send({type: "PREVIOUS"})
+              }}
+              text="Previous"
+            />
+          )}
+          <FooterButton
             onClick={() => {
               send({type: "NEXT"})
             }}
-            className={cn(
-              "p-2 border shadow border-slate-900 rounded-md bg-slate-100 hover:shadow-md ",
-              !nextButtonEnabled && disabledStyle()
-            )}
-            disabled={!nextButtonEnabled}
-          >
-            Next
-          </button>
+            text="Next"
+            enabled={nextButtonEnabled}
+          />
         </div>
       </div>
     </motion.div>
@@ -107,7 +110,7 @@ function SelectCateGory({selectCategory, context}: SelectCateGoryProps) {
   return (
     <div>
       <ul>
-        {CATEGORIES.map(category => (
+        {CATEGORIES.map((category) => (
           <li key={category}>
             <label
               htmlFor={`radio-${category}`}
@@ -135,5 +138,25 @@ function SelectCateGory({selectCategory, context}: SelectCateGoryProps) {
         ))}
       </ul>
     </div>
+  )
+}
+
+interface FooterButtonProps {
+  onClick: () => void
+  enabled: boolean
+  text: string
+}
+function FooterButton({onClick, enabled, text}: FooterButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "p-2 border shadow border-slate-900 rounded-md bg-slate-100 hover:shadow-md",
+        !enabled && disabledStyle()
+      )}
+      disabled={!enabled}
+    >
+      {text}
+    </button>
   )
 }

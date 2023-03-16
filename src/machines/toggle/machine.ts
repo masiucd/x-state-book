@@ -1,6 +1,8 @@
 import {createMachine} from "xstate"
 
 const toggleMachine = createMachine({
+  predictableActionArguments: true,
+
   schema: {
     context: {} as {},
     events: {} as {
@@ -8,9 +10,9 @@ const toggleMachine = createMachine({
     },
   },
   tsTypes: {} as import("./machine.typegen").Typegen0,
+
   id: "toggle",
   initial: "inactive",
-  predictableActionArguments: true,
   context: {},
   states: {
     inactive: {
