@@ -1,8 +1,30 @@
 import {assign, createMachine} from "xstate"
 
+export type Category = "drama" | "comedy" | "action" | "horror" | "empty"
+export type Event =
+  | {
+      type: "NEXT"
+    }
+  | {type: "PREVIOUS"}
+  | {type: "SELECT_CATEGORY"; category: Category}
+  | {type: "SELECT_MOVIE"; movie: Movie}
+
+export interface Meta {
+  title: string
+}
+
+export interface Movie {
+  id: number
+  title: string
+  poster_path: string
+  release_date: string
+  vote_average: number
+}
+
+export type Movies = Record<Category, readonly Movie[]>
+
 export const MACHINE_ID = "multiStepForm"
 
-export type Category = "drama" | "comedy" | "action" | "horror" | "empty"
 export const CATEGORIES: readonly Category[] = Object.freeze([
   "drama",
   "comedy",
@@ -10,19 +32,9 @@ export const CATEGORIES: readonly Category[] = Object.freeze([
   "horror",
 ])
 
-export type Event =
-  | {
-      type: "NEXT"
-    }
-  | {type: "PREVIOUS"}
-  | {type: "SELECT_CATEGORY"; category: Category}
-
-export interface Meta {
-  title: string
-}
-
 export interface Context {
   category: Category
+  movie: null | Movie
 }
 
 const multiStepForm = createMachine(
@@ -37,6 +49,7 @@ const multiStepForm = createMachine(
     initial: "selectCategory",
     context: {
       category: "empty",
+      movie: null,
     },
     states: {
       selectCategory: {
@@ -60,6 +73,9 @@ const multiStepForm = createMachine(
           NEXT: {
             target: "userInformation",
           },
+          SELECT_MOVIE: {
+            actions: "selectMovie",
+          },
         },
         meta: {
           title: "Movie info",
@@ -82,6 +98,11 @@ const multiStepForm = createMachine(
       selectCategory: assign((ctx, event) => {
         return {
           category: event.category,
+        }
+      }),
+      selectMovie: assign((ctx, event) => {
+        return {
+          movie: event.movie,
         }
       }),
     },

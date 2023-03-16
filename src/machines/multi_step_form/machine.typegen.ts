@@ -14,6 +14,7 @@ export interface Typegen0 {
   }
   eventsCausingActions: {
     selectCategory: "SELECT_CATEGORY"
+    selectMovie: "SELECT_MOVIE"
   }
   eventsCausingDelays: {}
   eventsCausingGuards: {}

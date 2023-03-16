@@ -4,6 +4,7 @@
     "eslint:recommended",
     "plugin:react-hooks/recommended",
     "plugin:tailwindcss/recommended"
+    // "plugin:@typescript-eslint/recommended"
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
@@ -13,8 +14,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
     "no-console": "warn",
-    "no-case-declarations": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["warn"]
+    "no-case-declarations": "off"
+    // "no-unused-vars": "off",
+    // "@typescript-eslint/no-unused-vars": ["warn"]
   }
 }

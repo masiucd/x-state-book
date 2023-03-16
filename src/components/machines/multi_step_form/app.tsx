@@ -3,6 +3,7 @@ import {useMachine} from "@xstate/react"
 import {motion} from "framer-motion"
 import {StateValue} from "xstate"
 
+import {formatDate} from "@/lib/utils/date"
 import {cn} from "@/lib/utils/styles"
 import multiStepForm, {
   CATEGORIES,
@@ -10,17 +11,8 @@ import multiStepForm, {
   Context,
   MACHINE_ID,
   Meta,
+  Movies,
 } from "@/machines/multi_step_form/machine"
-
-interface Movie {
-  id: number
-  title: string
-  poster_path: string
-  release_date: string
-  vote_average: number
-}
-
-type Movies = Record<Category, readonly Movie[]>
 
 const MOVIES: Movies = Object.freeze({
   empty: [],
@@ -100,12 +92,12 @@ export default function MultiStepFormApp() {
 
   return (
     <motion.div
-      className="flex max-h-[600px] min-h-[300px] min-w-[300px] flex-col rounded-md border border-slate-900/50 shadow-md md:min-h-[500px] md:min-w-[750px]"
+      className="flex max-h-[600px] min-h-[300px] min-w-[300px] flex-col rounded border border-slate-900/50 shadow-md md:min-h-[500px] md:min-w-[750px]"
       initial={{opacity: 0, scale: 0.2}}
       animate={{opacity: 1, scale: 1}}
       transition={{duration: 0.3}}
     >
-      <div className="rounded-md border-b border-slate-900 bg-gray-200 p-1 shadow">
+      <div className="rounded border-b border-slate-900 bg-gray-100 p-1 shadow">
         <h4 className="text-2xl">{title}</h4>
       </div>
 
@@ -152,6 +144,7 @@ function disabledStyle() {
 }
 
 interface Handlers {
+  // eslint-disable-next-line no-unused-vars
   selectCategory: (category: Category) => void
 }
 
@@ -172,9 +165,28 @@ function renderBody(
       const movies = MOVIES[context.category]
       return (
         <div>
-          <ul>
+          <ul className="flex flex-wrap gap-5">
             {movies.map((movie) => (
-              <li key={movie.id}>{movie.title}</li>
+              <li
+                key={movie.id}
+                className="flex flex-col gap-3 rounded-lg border border-slate-800 p-2 shadow-md transition-all duration-200 hover:shadow-lg"
+              >
+                <button type="button" className="flex justify-start">
+                  <span className="inline-block border-b-2 border-slate-900 transition-all hover:border-blue-500 hover:font-bold">
+                    {movie.title}
+                  </span>
+                </button>
+                <p>
+                  Released:{" "}
+                  <span className="font-bold">
+                    {formatDate(movie.release_date)}
+                  </span>
+                </p>
+                <p>
+                  Rating:{" "}
+                  <span className="font-bold">{movie.vote_average}</span>/10
+                </p>
+              </li>
             ))}
           </ul>
         </div>
