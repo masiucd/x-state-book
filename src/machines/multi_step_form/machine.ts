@@ -78,7 +78,7 @@ const multiStepForm = createMachine(
           },
         },
         meta: {
-          title: "Movie info",
+          title: "Select movie",
         },
       },
       userInformation: {
@@ -95,12 +95,12 @@ const multiStepForm = createMachine(
   },
   {
     actions: {
-      selectCategory: assign((ctx, event) => {
+      selectCategory: assign((_, event) => {
         return {
           category: event.category,
         }
       }),
-      selectMovie: assign((ctx, event) => {
+      selectMovie: assign((_, event) => {
         return {
           movie: event.movie,
         }

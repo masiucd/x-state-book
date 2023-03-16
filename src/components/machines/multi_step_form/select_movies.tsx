@@ -1,19 +1,34 @@
 import {formatDate} from "@/lib/utils/date"
-import {Movie} from "@/machines/multi_step_form/machine"
+import {cn} from "@/lib/utils/styles"
+import {Context, Movie} from "@/machines/multi_step_form/machine"
 
 interface Props {
+  context: Context
   movies: readonly Movie[]
+  // eslint-disable-next-line no-unused-vars
+  selectMovie: (movie: Movie) => void
 }
-export default function SelectMovies({movies}: Props) {
+export default function SelectMovies({context, movies, selectMovie}: Props) {
   return (
     <div>
       <ul className="flex flex-wrap gap-5">
         {movies.map((movie) => (
           <li
             key={movie.id}
-            className="flex flex-col gap-3 rounded-lg border border-slate-800 p-2 shadow-md transition-all duration-200 hover:shadow-lg"
+            className={cn(
+              "flex flex-col gap-3 rounded-lg border border-slate-800 p-2 shadow-md transition-all duration-200 hover:shadow-lg",
+              context.movie !== null &&
+                context.movie.id === movie.id &&
+                "bg-blue-100 shadow-xl"
+            )}
           >
-            <button type="button" className="flex justify-start">
+            <button
+              type="button"
+              className="flex justify-start"
+              onClick={() => {
+                selectMovie(movie)
+              }}
+            >
               <span className="inline-block border-b-2 border-slate-900 transition-all hover:border-blue-500 hover:font-bold">
                 {movie.title}
               </span>

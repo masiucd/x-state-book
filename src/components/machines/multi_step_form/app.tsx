@@ -8,6 +8,7 @@ import multiStepForm, {
   Context,
   MACHINE_ID,
   Meta,
+  Movie,
   Movies,
 } from "@/machines/multi_step_form/machine"
 
@@ -89,7 +90,7 @@ export default function MultiStepFormApp() {
   const {title} = state.meta[
     `${state.machine?.id ?? MACHINE_ID}.${state.value}`
   ] as Meta
-  const nextButtonEnabled = isNextButtonEnabled(state.context)
+  const nextButtonEnabled = isNextButtonEnabled(state.value, state.context)
 
   return (
     <motion.div
@@ -106,6 +107,7 @@ export default function MultiStepFormApp() {
         {renderBody(state.value, state.context, {
           selectCategory: (category: Category) =>
             send({type: "SELECT_CATEGORY", category}),
+          selectMovie: (movie: Movie) => send({type: "SELECT_MOVIE", movie}),
         })}
       </section>
 
@@ -133,9 +135,21 @@ export default function MultiStepFormApp() {
   )
 }
 
-function isNextButtonEnabled({category}: Context) {
-  if (category !== "empty") {
-    return true
+function isNextButtonEnabled(
+  stateValue: StateValue,
+  {category, movie}: Context
+) {
+  if (stateValue === "selectCategory") {
+    if (category !== "empty") {
+      return true
+    }
+    return false
+  }
+  if (stateValue === "selectMovies") {
+    if (movie !== null) {
+      return true
+    }
+    return false
   }
   return false
 }
@@ -143,6 +157,8 @@ function isNextButtonEnabled({category}: Context) {
 interface Handlers {
   // eslint-disable-next-line no-unused-vars
   selectCategory: (category: Category) => void
+  // eslint-disable-next-line no-unused-vars
+  selectMovie: (movie: Movie) => void
 }
 
 function renderBody(
@@ -160,7 +176,13 @@ function renderBody(
       )
     case "selectMovies":
       const movies = MOVIES[context.category]
-      return <SelectMovies movies={movies} />
+      return (
+        <SelectMovies
+          context={context}
+          movies={movies}
+          selectMovie={handlers.selectMovie}
+        />
+      )
     case "userInformation":
       return <div>User Information</div>
     default:
