@@ -12,6 +12,84 @@ import multiStepForm, {
   Meta,
 } from "@/machines/multi_step_form/machine"
 
+interface Movie {
+  id: number
+  title: string
+  poster_path: string
+  release_date: string
+  vote_average: number
+}
+
+type Movies = Record<Category, readonly Movie[]>
+
+const MOVIES: Movies = Object.freeze({
+  empty: [],
+  action: [
+    {
+      id: 1,
+      title: "Die Hard",
+      poster_path: "/die-hard.jpg",
+      release_date: "1988-07-15",
+      vote_average: 8.2,
+    },
+    {
+      id: 2,
+      title: "The Matrix",
+      poster_path: "/the-matrix.jpg",
+      release_date: "1999-03-30",
+      vote_average: 8.7,
+    },
+  ],
+  comedy: [
+    {
+      id: 1,
+      title: "Bruce Almighty",
+      poster_path: "/bruce-almighty.jpg",
+      release_date: "2003-05-23",
+      vote_average: 6.7,
+    },
+    {
+      id: 2,
+      title: "The Hangover",
+      poster_path: "/the-hangover.jpg",
+      release_date: "2009-06-05",
+      vote_average: 7.7,
+    },
+  ],
+  drama: [
+    {
+      id: 1,
+      title: "Titanic",
+      poster_path: "/titanic.jpg",
+      release_date: "1997-11-18",
+      vote_average: 7.8,
+    },
+    {
+      id: 2,
+      title: "The Godfather",
+      poster_path: "/the-godfather.jpg",
+      release_date: "1972-03-14",
+      vote_average: 8.6,
+    },
+  ],
+  horror: [
+    {
+      id: 1,
+      title: "The Shining",
+      poster_path: "/the-shining.jpg",
+      release_date: "1980-05-23",
+      vote_average: 8.4,
+    },
+    {
+      id: 2,
+      title: "The Conjuring",
+      poster_path: "/the-conjuring.jpg",
+      release_date: "2013-07-18",
+      vote_average: 7.5,
+    },
+  ],
+})
+
 export default function MultiStepFormApp() {
   const [state, send] = useMachine(multiStepForm)
 
@@ -74,7 +152,6 @@ function disabledStyle() {
 }
 
 interface Handlers {
-  // eslint-disable-next-line no-unused-vars
   selectCategory: (category: Category) => void
 }
 
@@ -91,8 +168,17 @@ function renderBody(
           context={context}
         />
       )
-    case "movieInfo":
-      return <div>Movie Info</div>
+    case "selectMovies":
+      const movies = MOVIES[context.category]
+      return (
+        <div>
+          <ul>
+            {movies.map((movie) => (
+              <li key={movie.id}>{movie.title}</li>
+            ))}
+          </ul>
+        </div>
+      )
     case "userInformation":
       return <div>User Information</div>
     default:

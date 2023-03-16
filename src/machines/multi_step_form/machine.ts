@@ -22,7 +22,6 @@ export interface Meta {
 }
 
 export interface Context {
-  movieName: string
   category: Category
 }
 
@@ -37,14 +36,13 @@ const multiStepForm = createMachine(
     id: MACHINE_ID,
     initial: "selectCategory",
     context: {
-      movieName: "",
       category: "empty",
     },
     states: {
       selectCategory: {
         on: {
           NEXT: {
-            target: "movieInfo",
+            target: "selectMovies",
           },
           SELECT_CATEGORY: {
             actions: "selectCategory",
@@ -54,7 +52,7 @@ const multiStepForm = createMachine(
           title: "Select category",
         },
       },
-      movieInfo: {
+      selectMovies: {
         on: {
           PREVIOUS: {
             target: "selectCategory",
@@ -70,7 +68,7 @@ const multiStepForm = createMachine(
       userInformation: {
         on: {
           PREVIOUS: {
-            target: "movieInfo",
+            target: "selectMovies",
           },
         },
         meta: {

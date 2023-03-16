@@ -18,6 +18,6 @@ export interface Typegen0 {
   eventsCausingDelays: {}
   eventsCausingGuards: {}
   eventsCausingServices: {}
-  matchesStates: "movieInfo" | "selectCategory" | "userInformation"
+  matchesStates: "selectCategory" | "selectMovies" | "userInformation"
   tags: never
 }
