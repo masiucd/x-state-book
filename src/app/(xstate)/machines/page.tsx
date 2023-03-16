@@ -1,3 +1,7 @@
 export default async function MachinesPage() {
-  return <div>MachinesPage</div>
+  return (
+    <div>
+      <div>Machines</div>
+    </div>
+  )
 }

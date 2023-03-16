@@ -12,57 +12,49 @@ interface Props {
   machines: Machine[]
 }
 
-// const container = {
-//   hidden: { opacity: 0 },
-//   show: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.5
-//     }
-//   }
-// }
+const container = {
+  hidden: {opacity: 0, y: -300},
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.6,
+    },
+  },
+}
 
-// const item = {
-//   hidden: { opacity: 0 },
-//   show: { opacity: 1 }
-// }
-
-// return (
-//   <motion.ol
-//     variants={container}
-//     initial="hidden"
-//     animate="show"
-//   >
-//     <motion.li variants={item} />
-//     <motion.li variants={item} />
-//   </motion.ol>
-// )
+const item = {
+  hidden: {opacity: 0},
+  show: {opacity: 1},
+}
 
 export default function MobileNav({machines}: Props) {
   const [isOpen, {toggle}] = useToggle()
   return (
-    <nav className="relative flex w-full flex-1 flex-col border border-red-500 sm:hidden">
-      <button aria-label="Nav menu button" type="button" onClick={toggle}>
+    <nav className="relative flex flex-1 flex-col items-end justify-end sm:hidden">
+      <button
+        aria-label="Nav menu button"
+        type="button"
+        onClick={toggle}
+        className="w-8"
+      >
         <Menu />
       </button>
       <AnimatePresence>
         {isOpen && (
           <motion.ul
-            className="absolute top-[120px] right-5 flex flex-col gap-3 rounded-md border border-slate-900/50 bg-slate-50 shadow"
-            initial={{opacity: 0.3, y: -100}}
-            animate={{
-              opacity: 1,
-              y: 1,
-              transition: {type: "tween", delay: 0.2, duration: 0.3},
-            }}
-            exit={{opacity: 0.3, y: -100}}
+            className="absolute top-[40px] right-0 flex w-[8rem] flex-col gap-3 rounded-md bg-slate-50 px-1 py-2 shadow"
+            variants={container}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
           >
             {machines.map((machine) => (
-              <li key={machine.machine}>
+              <motion.li key={machine.machine} variants={item}>
                 <NavLink href={`/machines/${machine.path}`}>
                   {machine.machine}
                 </NavLink>
-              </li>
+              </motion.li>
             ))}
           </motion.ul>
         )}

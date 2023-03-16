@@ -1,6 +1,7 @@
 import fs from "node:fs/promises"
 import {join} from "node:path"
 
+import AnimatedWrapper from "@/components/common/animated_wrapper"
 import CodeHighlighter from "@/components/common/code_highlighter"
 import Toggle from "@/components/machines/toggle/app"
 import {ABSOLUTE_APP_PATH} from "@/lib/utils/io"
@@ -25,11 +26,11 @@ async function getMachineContent(machine: MachineType) {
 export default async function ToggleMachinePage() {
   const [content, error] = await getMachineContent("toggle")
   return (
-    <div className="flex flex-1 flex-col gap-5 p-2">
+    <AnimatedWrapper className="flex flex-1 flex-col gap-5 p-2">
       <Toggle />
       {error === null && typeof content === "string" && (
         <CodeHighlighter content={content} />
       )}
-    </div>
+    </AnimatedWrapper>
   )
 }
