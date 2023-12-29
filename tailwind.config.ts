@@ -16,6 +16,7 @@ const config: Config = {
       },
       colors: {
         gray: colors.zinc,
+        main: colors.emerald,
       },
     },
   },
