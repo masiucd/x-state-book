@@ -1,5 +1,5 @@
 import {PageWrapper} from "@/components/page-wrapper";
-import {H1, H2, Paragraph} from "@/components/typo";
+import {H1, H2, Paragraph} from "@/components/typography";
 
 export default function Home() {
   return (
