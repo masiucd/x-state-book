@@ -10,7 +10,7 @@ export function H1({children, className}: PropsWithChildren<Props>) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-3xl  md:text-4xl font-extrabold tracking-tight lg:text-5xl",
         className
       )}
     >
@@ -23,7 +23,7 @@ export function H2({children, className}: PropsWithChildren<Props>) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 border-b pb-2 text-2xl md:text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
     >
@@ -36,7 +36,7 @@ export function H3({children, className}: PropsWithChildren<Props>) {
   return (
     <h3
       className={cn(
-        "scroll-m-20 text-2xl font-semibold tracking-tight",
+        "scroll-m-20 text-xl md:text-2xl font-semibold tracking-tight",
         className
       )}
     >
@@ -49,7 +49,7 @@ export function H4({children, className}: PropsWithChildren<Props>) {
   return (
     <h4
       className={cn(
-        "scroll-m-20 text-xl font-semibold tracking-tight",
+        "scroll-m-20 text-lg md:text-xl font-semibold tracking-tight",
         className
       )}
     >
@@ -67,7 +67,7 @@ export function BlockQuote({children, className}: PropsWithChildren<Props>) {
 }
 
 export function Paragraph({children, className}: PropsWithChildren<Props>) {
-  return <p className={cn("leading-7 ", className)}>{children}</p>;
+  return <p className={cn("text-base leading-7 ", className)}>{children}</p>;
 }
 
 export function List({children, className}: PropsWithChildren<Props>) {
