@@ -11,6 +11,7 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "@xstate/react": "^4.0.2",
+    "bright": "^0.8.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.303.0",
