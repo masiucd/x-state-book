@@ -18,7 +18,7 @@ export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en">
       <body
-        className={cn("bg-slate-100 text-gray-800", jetBrainsMono.className)}
+        className={cn("bg-slate-50 text-gray-800", jetBrainsMono.className)}
       >
         {children}
       </body>

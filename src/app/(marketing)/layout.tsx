@@ -4,17 +4,17 @@ import {type PropsWithChildren} from "react";
 export default function MarketingLayout({children}: PropsWithChildren) {
   return (
     <>
-      <header className="flex min-h-16 bg-blue-400">
+      <header className="flex min-h-16">
         <div className="mx-auto flex w-full max-w-4xl items-center border">
           <Link href="/">
             <strong>X state stuff</strong>
           </Link>
         </div>
       </header>
-      <main className="flex min-h-[calc(100dvh-8rem)] flex-col bg-black/10">
+      <main className="flex min-h-[calc(100dvh-8rem)] flex-col">
         {children}
       </main>
-      <footer className="flex min-h-16 bg-green-400">
+      <footer className="flex min-h-16">
         <div className="mx-auto flex w-full max-w-4xl flex-1 items-center  border-2">
           <small>
             X state stuff, by{" "}
