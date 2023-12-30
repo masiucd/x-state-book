@@ -6,7 +6,7 @@ import {Machines} from "./machines";
 export default function Home() {
   return (
     <PageWrapper>
-      <div className="flex flex-1 flex-col justify-center gap-1 border border-red-500 ">
+      <div className="flex flex-1 flex-col justify-center gap-1 bg-box bg-cover">
         <H1>
           <span className="relative   after:absolute after:bottom-3 after:left-0 after:z-[-1]  after:h-5 after:w-full after:rotate-1 after:rounded-[0.25rem] after:bg-main-200 after:shadow-md after:content-['']">
             X-state
