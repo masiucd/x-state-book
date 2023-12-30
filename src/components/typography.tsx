@@ -93,6 +93,10 @@ export function InlineCode({children, className}: PropsWithChildren<Props>) {
 
 export function Lead({children, className}: PropsWithChildren<Props>) {
   return (
-    <p className={cn("text-xl text-gray-500/80", className)}>{children}</p>
+    <p className={cn("text-xl text-gray-700/60", className)}>{children}</p>
   );
+}
+
+export function Strong({children, className}: PropsWithChildren<Props>) {
+  return <strong className={cn("font-semibold", className)}>{children}</strong>;
 }
