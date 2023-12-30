@@ -168,7 +168,7 @@ function MachineItem({machine}: {machine: MachineType}) {
   return (
     <div
       key={machine.url}
-      className="flex h-32  flex-col justify-between gap-1 rounded-sm border border-gray-200/50 bg-gray-50 p-2 shadow-md"
+      className="flex h-32  flex-col justify-between gap-1 rounded-sm border border-gray-200/50 bg-gray-100 p-2 shadow-md"
     >
       <Paragraph>
         <span className="relative z-10 p-[1px] font-semibold underline decoration-gray-800 underline-offset-4 after:absolute after:inset-0 after:z-[-1] after:w-full after:rotate-[-2deg] after:rounded-[0.25rem] after:bg-main-200 after:shadow-md after:content-['']">
