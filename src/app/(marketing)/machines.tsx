@@ -97,7 +97,7 @@ async function getSortValue() {
 export async function Machines() {
   let sort = await getSortValue();
   return (
-    <div>
+    <div className="px-2 md:px-0">
       <form
         className="flex items-center justify-end gap-3  px-1 py-2"
         action={setSortValue}
