@@ -1,11 +1,11 @@
-import {revalidatePath} from "next/cache";
-import {cookies} from "next/headers";
 import Link from "next/link";
 import * as v from "valibot";
 
 import {icons} from "@/components/icons";
 import {Paragraph, Strong} from "@/components/typography";
 import {cn} from "@/lib/styles";
+
+import {getSortValue, setSortValue} from "./actions";
 
 let MachineSchema = v.object({
   title: v.string(),
@@ -77,23 +77,6 @@ let MachineData = Object.freeze([
   },
 ]);
 
-async function setSortValue(formData: FormData) {
-  "use server";
-  let sort = formData.get("sort");
-  let cookieStore = cookies();
-  if (sort) {
-    cookieStore.set("sort", String(sort));
-  }
-  revalidatePath("/");
-}
-
-async function getSortValue() {
-  "use server";
-  let cookieStore = cookies();
-  let sort = cookieStore.get("sort");
-  return sort?.value ?? "popular";
-}
-
 export async function Machines() {
   let sort = await getSortValue();
   return (
@@ -145,19 +128,20 @@ export async function Machines() {
 }
 
 function MachineItems({sort = "popular"}: {sort?: string}) {
+  let result = v.parse(v.array(MachineSchema), MachineData);
   switch (sort) {
     case "popular":
-      return MachineData.toSorted((a, b) => b.rating - a.rating).map(
-        (machine) => <MachineItem key={machine.url} machine={machine} />
-      );
+      return result
+        .sort((a, b) => b.rating - a.rating)
+        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
     case "name":
-      return MachineData.toSorted((a, b) => a.title.localeCompare(b.title)).map(
-        (machine) => <MachineItem key={machine.url} machine={machine} />
-      );
+      return result
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
     case "created":
-      return MachineData.toSorted((a, b) =>
-        b.created.localeCompare(a.created)
-      ).map((machine) => <MachineItem key={machine.url} machine={machine} />);
+      return result
+        .sort((a, b) => b.created.localeCompare(a.created))
+        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
     default:
       return null;
   }
