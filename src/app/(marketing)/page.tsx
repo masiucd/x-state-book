@@ -1,7 +1,7 @@
 import {PageWrapper} from "@/components/page-wrapper";
 import {H1, H2, Paragraph} from "@/components/typography";
 
-// import {Machines} from "./machines";
+import {Machines} from "./machines";
 
 export default function Home() {
   return (
@@ -33,7 +33,7 @@ export default function Home() {
           </Paragraph>
         </div>
       </div>
-      {/* <Machines /> */}
+      <Machines />
     </PageWrapper>
   );
 }

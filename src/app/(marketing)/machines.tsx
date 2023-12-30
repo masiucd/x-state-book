@@ -145,20 +145,19 @@ export async function Machines() {
 }
 
 function MachineItems({sort = "popular"}: {sort?: string}) {
-  let result = v.parse(v.array(MachineSchema), MachineData);
   switch (sort) {
     case "popular":
-      return result
-        .toSorted((a, b) => b.rating - a.rating)
-        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
+      return MachineData.toSorted((a, b) => b.rating - a.rating).map(
+        (machine) => <MachineItem key={machine.url} machine={machine} />
+      );
     case "name":
-      return result
-        .toSorted((a, b) => a.title.localeCompare(b.title))
-        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
+      return MachineData.toSorted((a, b) => a.title.localeCompare(b.title)).map(
+        (machine) => <MachineItem key={machine.url} machine={machine} />
+      );
     case "created":
-      return result
-        .toSorted((a, b) => b.created.localeCompare(a.created))
-        .map((machine) => <MachineItem key={machine.url} machine={machine} />);
+      return MachineData.toSorted((a, b) =>
+        b.created.localeCompare(a.created)
+      ).map((machine) => <MachineItem key={machine.url} machine={machine} />);
     default:
       return null;
   }
