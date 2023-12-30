@@ -33,7 +33,7 @@ export default function Home() {
           </Paragraph>
         </div>
       </div>
-      <Machines />
+      {/* <Machines /> */}
     </PageWrapper>
   );
 }
