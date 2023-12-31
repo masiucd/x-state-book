@@ -88,7 +88,7 @@ export async function Machines() {
         <Strong>Sort:</Strong>
         <button
           className={cn(
-            "relative rounded-sm border border-gray-500 bg-gray-100 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
+            "relative rounded-sm border border-gray-500 bg-gray-50 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
             sort === "popular" && "bg-main-500 text-white"
           )}
           type="submit"
@@ -99,7 +99,7 @@ export async function Machines() {
         </button>
         <button
           className={cn(
-            "relative rounded-sm border border-gray-500 bg-gray-100 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
+            "relative rounded-sm border border-gray-500 bg-gray-50 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
             sort === "name" && "bg-main-500 text-white"
           )}
           type="submit"
@@ -110,7 +110,7 @@ export async function Machines() {
         </button>
         <button
           className={cn(
-            "relative rounded-sm border border-gray-500 bg-gray-100 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
+            "relative rounded-sm border border-gray-500 bg-gray-50 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900",
             sort === "created" && "bg-main-500 text-white"
           )}
           type="submit"
