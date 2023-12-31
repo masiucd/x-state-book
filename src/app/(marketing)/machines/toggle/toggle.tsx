@@ -10,15 +10,10 @@ export default function Toggle() {
   let [snapShot, send] = useMachine(toggleMachine);
   let {value} = snapShot;
   return (
-    <div className="border">
-      <H2>{value as string}</H2>
-      <button
-        onClick={() => {
-          send({type: "TOGGLE"});
-        }}
-      >
-        {snapShot.value === "inactive" ? "Off" : "On"}
-      </button>
+    <div className=" flex flex-col items-center justify-center gap-2 bg-green-300 px-2 py-5">
+      <H2 className=" text-2xl">
+        State is = <span>{value as string}</span>
+      </H2>
       <Bulb
         className={
           value === "inactive"
@@ -26,6 +21,14 @@ export default function Toggle() {
             : "fill-yellow-500 stroke-gray-950"
         }
       />
+      <button
+        className="relative rounded-sm border border-gray-500 bg-gray-50 px-2 py-1 text-sm font-semibold transition-opacity duration-75 hover:opacity-45 active:top-1 active:ring-2 active:ring-gray-900"
+        onClick={() => {
+          send({type: "TOGGLE"});
+        }}
+      >
+        {snapShot.value === "inactive" ? "Off" : "On"}
+      </button>
     </div>
   );
 }
