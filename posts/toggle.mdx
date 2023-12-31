@@ -2,16 +2,19 @@
 title: Toggle
 description: A simple toggle state machine.
 tags:
-  - fundamentals
-  - statecharts
-created: 2023-12-31
+  - toggle
+  - state machine
+  - xstate
+date: 2023-12-31
 ---
 
 The provided code is written in TypeScript and uses the XState library to create a state machine. XState is a library for creating, interpreting, and executing finite state machines and statecharts, as well as managing invocations of those machines as actors.
 
-The createMachine function is imported from the XState library and is used to define a state machine. The toggleMachine is an exported variable that holds the state machine.
+The createMachine function is imported from the XState library and is used to define a state machine.
+The toggleMachine is an exported variable that holds the state machine.
 
-The state machine has an id of "toggle" and an initial state of "inactive". The initial property defines the state that the machine should be in when it starts.
+The state machine has an id of "toggle" and an initial state of "inactive".
+The initial property defines the state that the machine should be in when it starts.
 
 The states property is an object that defines the different states that the machine can be in. In this case, there are two states: "active" and "inactive".
 
