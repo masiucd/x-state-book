@@ -1,14 +1,36 @@
 "use client";
 import {useMachine} from "@xstate/react";
+import {allPosts} from "contentlayer/generated";
+import {notFound, usePathname} from "next/navigation";
+import {getMDXComponent} from "next-contentlayer/hooks";
 
 import {H2} from "@/components/typography";
 import {cn} from "@/lib/styles";
 
 import {toggleMachine} from "./machine";
 
+function getPost(title: string) {
+  let post = allPosts.find(
+    (post) => post.title.toLowerCase() === title.toLowerCase()
+  );
+  return post ? post : null;
+}
+
+function getPathPartOrDefault(path: string, defaultValue: string, index = -1) {
+  let parts = path.split("/");
+  return parts.at(index) ?? defaultValue;
+}
+
 export default function Toggle() {
+  let pathname = usePathname();
   let [snapShot, send] = useMachine(toggleMachine);
   let {value} = snapShot;
+  let part = getPathPartOrDefault(pathname, "toggle");
+  let post = getPost(pathname.split("/").at(-1) ?? "toggle");
+  if (!post) {
+    notFound();
+  }
+  let Content = getMDXComponent(post.body.code ?? "No content found");
   return (
     <div className=" flex flex-col items-center justify-center gap-2 bg-green-300 px-2 py-5">
       <H2 className=" text-2xl">
@@ -29,6 +51,7 @@ export default function Toggle() {
       >
         {snapShot.value === "inactive" ? "Off" : "On"}
       </button>
+      <Content />
     </div>
   );
 }
