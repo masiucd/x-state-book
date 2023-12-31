@@ -21,6 +21,7 @@
     "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^2.2.0",
     "valibot": "^0.25.0",
     "xstate": "^5.4.1"
