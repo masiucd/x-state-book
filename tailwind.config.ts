@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         box: "url('/images/box.svg')",
+        shape: "url('/images/shape2.svg')",
       },
       colors: {
         gray: colors.zinc,
