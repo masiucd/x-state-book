@@ -5,7 +5,7 @@ export default function MarketingLayout({children}: PropsWithChildren) {
   return (
     <>
       <header className="flex min-h-16">
-        <div className="mx-auto flex w-full max-w-4xl items-center ">
+        <div className="mx-auto flex w-full max-w-page items-center ">
           <Link href="/">
             <strong>X state stuff</strong>
           </Link>
@@ -15,7 +15,7 @@ export default function MarketingLayout({children}: PropsWithChildren) {
         {children}
       </main>
       <footer className="flex min-h-16">
-        <div className="mx-auto flex w-full max-w-4xl flex-1 items-center">
+        <div className="mx-auto flex w-full max-w-page flex-1 items-center">
           <small>
             X state stuff, by{" "}
             <a

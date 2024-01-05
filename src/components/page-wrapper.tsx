@@ -15,7 +15,7 @@ export function PageWrapper({
   return (
     <div
       className={cn(
-        "mx-auto flex w-full max-w-4xl flex-1 flex-col",
+        "mx-auto flex w-full max-w-page flex-1 flex-col",
         className,
         fluid && "max-w-none"
       )}

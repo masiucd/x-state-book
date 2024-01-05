@@ -9,9 +9,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // width: {},
+      maxWidth: {
+        page: "64rem",
+      },
       backgroundImage: {
         box: "url('/images/box.svg')",
         shape: "url('/images/shape2.svg')",
+        undraw: "url('/images/undraw.svg')",
       },
       colors: {
         gray: colors.zinc,
